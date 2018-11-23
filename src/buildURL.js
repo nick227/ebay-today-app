@@ -20,7 +20,16 @@ const buildURL = {
         base_url += options.param ? "&" + options.param + "=" + options.name : '';
         base_url += options.limit ? "&paginationInput.entriesPerPage=" + options.limit : '';
         base_url += options.globalID ? "&GLOBAL-ID=" + options.globalID : '';
-
+        base_url += options.sortOrder ? "&sortOrder=" + options.sortOrder : '';
+        if(options.filters.length){
+          let count=0;
+          for(var i=0;i<options.filters.length;i++){
+            let key = Object.keys(options.filters[i])[0];
+            let val = options.filters[i][key];
+            base_url += "&itemFilter("+count+").name="+key+"&itemFilter("+count+").value=" + val;
+            count++;
+          }
+        }
         return base_url;
     },
 
