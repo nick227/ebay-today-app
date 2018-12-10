@@ -60,8 +60,8 @@ function wrapHTML(data, terms){
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
 	html += genStyle();
 	html += '<hr>';
+	html += '<h3>categories:</h3>';
 	html += '<div id="top-menu" name="top-menu" class="menu">';
-	html += '<hr>categories:</h3>';
 	for(var i=0; i<terms.length;i++){
 		html += '<a href="'+terms[i]+'">'+terms[i]+'</a>';
 	}
