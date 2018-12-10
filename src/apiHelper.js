@@ -11,7 +11,7 @@ let {wrapRow, wrapItems, wrapHTML} = require('./createHTML.js');
 function handleRequest(termsAll, req, response){
 	var counter=0;
 	var htmlAll='';
-	var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t) : calcEndDate('day');
+	var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t)+'.768Z' : calcEndDate('day')+'.768Z';
 	console.log("endDate: ",endDate);
 	var filters=[{MaxPrice:typeof req.query.p === 'string' ? req.query.p : 500}, {MinPrice:25}, {EndTimeTo:endDate}, {ListingType:'Auction'}];
 	var sortOrder = typeof req.query.f === 'string' ? req.query.f : 'EndTimeSoonest';
@@ -55,11 +55,11 @@ function generate(ebay, terms, counter, callback){
 }
 function calcEndDate(type){
 	var obj = {
-		day:moment().add(1, 'd').format("YYYY-MM-DDTHH:mm:ss.768Z"),
-		three:moment().add(3, 'd').format("YYYY-MM-DDTHH:mm:ss.768Z"),
-		hour:moment().add(1, 'h').format("YYYY-MM-DDTHH:mm:ss.768Z"),
-		minute:moment().add(1, 'm').format("YYYY-MM-DDTHH:mm:ss.768Z"),
-		all:moment().add(31, 'd').format("YYYY-MM-DDTHH:mm:ss.768Z")
+		day:moment().add(1, 'd').format("YYYY-MM-DDTHH:mm:ss"),
+		three:moment().add(3, 'd').format("YYYY-MM-DDTHH:mm:ss"),
+		hour:moment().add(1, 'h').format("YYYY-MM-DDTHH:mm:ss"),
+		minute:moment().add(1, 'm').format("YYYY-MM-DDTHH:mm:ss"),
+		all:moment().add(31, 'd').format("YYYY-MM-DDTHH:mm:ss")
 	}
 	return obj[type];
 }
