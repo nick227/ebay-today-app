@@ -1,11 +1,11 @@
 
-let termsMini = ["panasonic lumix"];
+let termsMini = ["canon mark IV"];
 
-let termsBody    = ['canon body', 'panasonic lumix', 'Canon EOS 5D Mark', 'nikon body', 'sony body', 'red epic camera', 'sony fs camera', 'blackmagic ursa', 'blackmagic 4k camera', '4k camera'];
+let termsBody    = ['canon mark IV body', 'Canon 70d body', 'canon D60 body', 'canon eos 6d II body', 'canon 80D body', 'nikon Nikon D810 body', 'Pentax K-1 Mark II body', 'canon M50 body', 'canon 5D body', 'canon eos-1d x mark body', 'canon rebel t6 body', 'olympus om-d e-m10 body', 'Fujifilm X-T20 body', 'panasonic lumix gh5 body', 'panasonic lumix gh4 body', 'sony a7iii body', 'sony alpha camera body'];
 let termsCameras = {termsBody};
 
-let termsLenses1  = ["canon ef lens", 'micro four thirds lens', 'Sigma lenses', 'olympus lenses', 'lens voigtlander'];
-let termsLenses2  = ['cine lens', 'zoom lens', 'vintage lens', 'prime lenses'];
+let termsLenses1  = ["canon ef lens", 'micro four thirds lens', 'Sigma lens', 'olympus lens', 'lens voigtlander'];
+let termsLenses2  = ['cine camera lens', 'zoom camera lens', 'vintage camera lens', 'prime camera lens'];
 let termsLenses  = {termsLenses1, termsLenses2};
 
 
@@ -26,7 +26,7 @@ let termsShoes = {termsShoe1};
 
 let termsWatch1 = ["timex", "rolex", "movado watch", "seiko watch", "smartwatch", "quartz stainless watch", "fossil watch", "BREITLING watch","armani watch",  "skagen watch", "tag monaco watch", "Panerai Luminor Due", "MONDAINE HELVETICA", "limited luxury watch", "cartier mens watch", "montblanc watch", "Vacheron Constantin", "mens diamond watch", "tag heuer watch"];
 
-let termsBook = [/*"books", "signed copy book", "first print book", */"collectors edition book", "vintage book"];
+let termsBook = ["graphic novel book", "signed copy book", "first print book", "collectors edition book", "vintage book"];
 let termsBooks = {termsBook};
 
 termsWatches = {termsWatch1};
