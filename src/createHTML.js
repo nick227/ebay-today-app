@@ -56,7 +56,7 @@ function genStyle(){
 function wrapHTML(data, terms){
 	var html = '<!doctype html>';
 	html += '<html lang="eng"><head><meta charset="utf-8"><title>ebay app</title></head>';
-	html += '<body><div class="main"><h1>Ebay today</h1>';
+	html += '<body><div class="main"><h1>ebay today</h1> <div>by <a href="http://www.atxnick.com">atxnick</a></div>';
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
 	html += genStyle();
 	html += '<div id="top-menu" name="top-menu" class="menu">';
