@@ -4,6 +4,7 @@ const EBAY_KEY = require('./private').ebay;
 const async = require('async');
 const moment = require('moment');
 const _ = require('underscore');
+const terms = require('./terms');
 
 let {wrapRow, wrapItems, wrapHTML} = require('./createHTML.js');
 
@@ -62,7 +63,7 @@ function calcEndDate(type){
 }
 
 function finish(res, data){
-	let html = wrapHTML(data);
+	let html = wrapHTML(data, Object.keys(terms));
 	res.send(html);
 }
 module.exports = handleRequest;

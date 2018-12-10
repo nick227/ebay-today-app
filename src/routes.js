@@ -1,7 +1,7 @@
-let routes = ['', 'cameras', 'lenses', 'lights', 'audio', 'gear', 'watches', 'shoes', 'books'];
+const termsAll = require('./terms');
+let routes = Object.keys(termsAll);
 
 var handleRequest = require('./apiHelper');
-const termsAll = require('./terms');
 
 function init(app){
 	for(var i=0;i<routes.length;i++){

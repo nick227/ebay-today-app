@@ -3,35 +3,19 @@
   "version": "2.3.1",
   "description": "Ebay node api client",
   "main": "./src/index.js",
-  "homepage": "https://github.com/ajay2507/ebay-node-api",
-  "scripts": {
-    "test": "mocha",
-    "prepublish": "npm run test"
-  },
-  "author": "Ajaykumar prathap",
+  "homepage": "https://github.com/nick227/ebay-today-app",
+  "author": "nrios",
   "keywords": [
-    "eBay",
-    "Shopping",
-    "Searching",
-    "products"
+    "eBay"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ajay2507/ebay-node-api.git"
-  },
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.0.1",
-    "nock": "^9.2.3",
-    "sinon": "^4.4.5"
+    "url": "git@github.com:nick227/ebay-today-app.git"
   },
   "dependencies": {
-    "amazon-mws": "0.0.23",
-    "amazon-product-api": "^0.4.4",
     "async": "^2.6.1",
     "express": "^4.16.4",
-    "google-search-results-nodejs": "0.0.1",
     "moment": "^2.22.2",
     "underscore": "^1.9.1"
   }

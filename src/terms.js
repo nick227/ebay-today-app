@@ -24,6 +24,9 @@ let termsAudio    = {termsAu1, termsAu2};
 let termsShoe1 = ["addidas", "nike", "onitsuka shoe", "converse shoe", "puma shoe", "vans shoes", "air jordans", "Bacco Bucci", "Designer Mens shoe", "allen edmonds shoe", "bruno magli shoe", "lululemon shoe", "limited shoes"];
 let termsShoes = {termsShoe1};
 
+let termsOther = ["snowboard"];
+let termsOthers = {termsOther};
+
 let termsWatch1 = ["timex", "rolex", "movado watch", "seiko watch", "smartwatch", "quartz stainless watch", "fossil watch", "BREITLING watch","armani watch",  "skagen watch", "tag monaco watch", "Panerai Luminor Due", "MONDAINE HELVETICA", "limited luxury watch", "cartier mens watch", "montblanc watch", "Vacheron Constantin", "mens diamond watch", "tag heuer watch"];
 
 let termsBook = ["graphic novel book", "signed copy book", "first print book", "collectors edition book", "vintage book"];
@@ -39,7 +42,8 @@ let terms = {
 	books: termsBooks,
 	gear: termsGear,
 	shoes: termsShoes,
-	watches: termsWatches
+	watches: termsWatches,
+	other:termsOthers
 };
 
 module.exports = terms;

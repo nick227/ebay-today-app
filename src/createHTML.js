@@ -53,13 +53,17 @@ function genStyle(){
 				.switch{position: relative; display: inline-block; width: 60px; height: 24px;}.switch input{opacity: 0; width: 0; height: 0;}.slider{position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}.slider:before{position: absolute; content: ""; height: 16px; width: 16px; left: 5px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s;}input:checked + .slider{background-color: green;}input:focus + .slider{box-shadow: 0 0 1px #2196F3;}input:checked + .slider:before{-webkit-transform: translateX(33px); -ms-transform: translateX(33px); transform: translateX(33px);}.slider.round{border-radius: 24px;}.slider.round:before{border-radius: 50%;}
 				</style>`;
 }
-function wrapHTML(data){
+function wrapHTML(data, terms){
 	var html = '<!doctype html>';
 	html += '<html lang="eng"><head><meta charset="utf-8"><title>ebay app</title></head>';
 	html += '<body><div class="main"><h1>Ebay today</h1>';
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
 	html += genStyle();
-	html += '<div id="top-menu" name="top-menu" class="menu"><a href="/cameras">cameras</a> <a href="/lenses">lenses</a> <a href="/lights">lights</a> <a href="/audio">audio <a href="/gear">gear</a> <a href="/shoes">shoes</a> <a href="/watches">watches</a> <a href="/books">books</a></div>';
+	html += '<div id="top-menu" name="top-menu" class="menu">';
+	for(var i=0; i<terms.length;i++){
+		html += '<a href="'+terms[i]+'">'+terms[i]+'</a>';
+	}
+	html += '</div>';
 	
 	html += '<hr>';
 	html += '<h3 style="">terms:</h3>';
