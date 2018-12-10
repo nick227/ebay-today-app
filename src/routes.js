@@ -1,5 +1,6 @@
 const termsAll = require('./terms');
 let routes = Object.keys(termsAll);
+routes.push("");
 
 var handleRequest = require('./apiHelper');
 
