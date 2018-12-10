@@ -9,7 +9,7 @@ const terms = require('./terms');
 let {wrapRow, wrapItems, wrapHTML} = require('./createHTML.js');
 
 function handleRequest(termsAll, req, response){
-	return 'ok';
+	response.send('ok');
 	var counter=0;
 	var htmlAll='';
 	var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t) : calcEndDate('day');
