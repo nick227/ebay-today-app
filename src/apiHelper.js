@@ -12,6 +12,7 @@ function handleRequest(termsAll, req, response){
 	var counter=0;
 	var htmlAll='';
 	var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t) : calcEndDate('day');
+	console.log("endDate: ",endDate);
 	var filters=[{MaxPrice:typeof req.query.p === 'string' ? req.query.p : 500}, {MinPrice:25}, {EndTimeTo:endDate}, {ListingType:'Auction'}];
 	var sortOrder = typeof req.query.f === 'string' ? req.query.f : 'EndTimeSoonest';
 	var limit = typeof req.query.z === 'string' ? req.query.z : 50;
@@ -37,6 +38,7 @@ function generate(ebay, terms, counter, callback){
 	async.mapSeries(terms, (value, next) => {
 		ebay.findItemsByKeywords(value).then((data) => {
 			let html = '';
+			console.log(JSON.stringify(data[0].errorMessage));
 			if(typeof data[0]==='object' && typeof data[0].searchResult==='object'){
 				let matches = data[0].searchResult[0].item;
 				html = wrapItems(matches, value, counter);
