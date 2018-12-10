@@ -38,7 +38,7 @@ function generate(ebay, terms, counter, callback){
 		ebay.findItemsByKeywords(value).then((data) => {
 			let html = '';
 			console.log(JSON.stringify(data[0].errorMessage));
-			if(typeof data[0]==='object' && typeof data[0].searchResult==='object'){
+			if(typeof data[0]==='object' && typeof data[0].searchResult[0].item==='object'){
 				let matches = data[0].searchResult[0].item;
 				if(matches.length){
 					html = wrapItems(matches, value, counter);
