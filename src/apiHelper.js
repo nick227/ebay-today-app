@@ -40,7 +40,9 @@ function generate(ebay, terms, counter, callback){
 			console.log(JSON.stringify(data[0].errorMessage));
 			if(typeof data[0]==='object' && typeof data[0].searchResult==='object'){
 				let matches = data[0].searchResult[0].item;
-				html = wrapItems(matches, value, counter);
+				if(matches.length){
+					html = wrapItems(matches, value, counter);
+				}
 			}
 	    	combinedHTML += html.toString();
 	    	next();
