@@ -59,7 +59,9 @@ function wrapHTML(data, terms){
 	html += '<body><div class="main"><h1>ebay today</h1> <div>by <a href="http://www.atxnick.com">atxnick</a></div>';
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
 	html += genStyle();
+	html += '<hr>';
 	html += '<div id="top-menu" name="top-menu" class="menu">';
+	html += '<hr>categories:</h3>';
 	for(var i=0; i<terms.length;i++){
 		html += '<a href="'+terms[i]+'">'+terms[i]+'</a>';
 	}
