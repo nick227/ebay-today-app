@@ -12,7 +12,6 @@ function handleRequest(termsAll, req, response){
 	var counter=0;
 	var htmlAll='';
 	var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t)+'.768Z' : calcEndDate('day')+'.768Z';
-	console.log("endDate: ",endDate);
 	var filters=[{MaxPrice:typeof req.query.p === 'string' ? req.query.p : 500}, {MinPrice:25}, {EndTimeTo:endDate}, {ListingType:'Auction'}];
 	var sortOrder = typeof req.query.f === 'string' ? req.query.f : 'EndTimeSoonest';
 	var limit = typeof req.query.z === 'string' ? req.query.z : 50;
@@ -46,10 +45,10 @@ function generate(ebay, terms, counter, callback){
 	    	combinedHTML += html.toString();
 	    	next();
 		}, (error) => {
-		    console.log(error);
+		    callback(error);
 		});
 	}, err => {
-	    if (err){ console.error(err.message); }
+	    if (err){ callback(err); }
 	    callback(combinedHTML);
 	});
 }
