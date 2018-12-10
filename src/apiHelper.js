@@ -55,11 +55,11 @@ function generate(ebay, terms, counter, callback){
 }
 function calcEndDate(type){
 	var obj = {
-		day:moment().add(1, 'd').format("YYYY-MM-DD HH:mm:ss"),
-		three:moment().add(3, 'd').format("YYYY-MM-DD HH:mm:ss"),
-		hour:moment().add(1, 'h').format("YYYY-MM-DD HH:mm:ss"),
-		minute:moment().add(1, 'm').format("YYYY-MM-DD HH:mm:ss"),
-		all:moment().add(31, 'd').format("YYYY-MM-DD HH:mm:ss")
+		day:moment().add(1, 'd').format("YYYY-MM-DDTHH:mm:ss.ZZ"),
+		three:moment().add(3, 'd').format("YYYY-MM-DDTHH:mm:ss.ZZ"),
+		hour:moment().add(1, 'h').format("YYYY-MM-DDTHH:mm:ss.ZZ"),
+		minute:moment().add(1, 'm').format("YYYY-MM-DDTHH:mm:ss.ZZ"),
+		all:moment().add(31, 'd').format("YYYY-MM-DDTHH:mm:ss.ZZ")
 	}
 	return obj[type];
 }
