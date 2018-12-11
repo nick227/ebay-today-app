@@ -25,12 +25,12 @@ function getHeadHtml(terms){
 }
 function getInnerHTML(data){
 	var html = '<hr>';
-		html += '<h3 style="">terms:</h3>';
+		html += '<h3 style="">found:</h3>';
 		html += '<div class="menu menu-terms"></div>';
 	html += '<hr>';
 	html += '<h3 style="">request:</h3>';
 	html += '<div class="row"><div style="">end time:</div><div style=""><a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div></div>';
-	html += '<div class="row"><div style="">max price:</div><div style=""><a href="?p=500">$500</a> / <a href="?p=999">$999</a> /  <a href="?p=2999">$2999</a> /  <a href="?p=5000">$5000</a></div></div>';
+	html += '<div class="row"><div style="">max price:</div><div style=""><a href="?p=500">$500</a> / <a href="?p=999">$999</a> /  <a href="?p=2999">$2999</a> /  <a href="?p=all">all</a></div></div>';
 	html += '<div class="row"><div style="">max results:</div><div style=""><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div></div>';
 	html += '<div class="row"><div style="">sort results:</div><div style=""><a href="?f=EndTimeSoonest">EndTimeSoonest</a> / <a href="?f=BestMatch">BestMatch</a> /  <a href="?f=PricePlusShippingLowest">PricePlusShippingLowest</a> /  <a href="?f=StartTimeNewest">StartTimeNewest</a></div></div>';
 	html += '<hr>';
@@ -85,14 +85,20 @@ function getStyle(){
 function getJavascript(){
 	return `<script>
 			(function(){
+		var menu = document.querySelector('.menu-terms');
+		var termsElms = document.querySelectorAll('.heading');
 		var options = {
 				valueNames: [ 'price', 'ends']
 			};
 		var list = new List('main-list', options);
-				var menu = document.querySelector('.menu-terms');
-				var terms = document.querySelectorAll('.heading');
-				for(var i=0;i<terms.length;i++){
-					var t = terms[i];
+		list.on('updated', function(res){
+			for(var i=0;i<termsElms.length;i++){
+					var t = termsElms[i];
+					t.style.display = 'none';
+			}
+		});
+				for(var i=0;i<termsElms.length;i++){
+					var t = termsElms[i];
 					var elm = document.createElement('a');
 					elm.href = '#'+t.textContent.replace(/ /g, '').replace(":", '');
 					elm.innerHTML = t.textContent;
@@ -139,8 +145,8 @@ function wrapItem(data, key, rowcount){
 		let safeTitle = item.title.toString().replace(/ /g, "-");
 		html += '<li class="list-item term-'+key.replace(/ /g, '')+'">';
 		html += '<div class="item"><div class="inner">';
-		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><h3 style="margin:2px 0;">' + item.title+ '</h3><a>';
-		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><img style="" src="'+item.galleryURL+'" /><a>';
+		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><h3 style="margin:2px 0;">' + item.title+ '</h3></a>';
+		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><img style="" src="'+item.galleryURL+'" /></a>';
 		html += '<div style="background-color:lightgray;font-weight:900;">Price: <span class="price">$' +item.sellingStatus[0].convertedCurrentPrice[0].__value__ + '</span></div>';
 		if(typeof item.condition==='object' && typeof item.condition[0]==='object' && typeof item.condition[0].conditionDisplayName==='object'){
 			html += '<div>Condition: ' +item.condition[0].conditionDisplayName[0] + '</div>';
