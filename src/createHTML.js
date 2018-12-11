@@ -87,6 +87,7 @@ function getInnerHTML(data){
 		}
 	}
 	html += '</div>';
+	html += '<hr>';
 	html += '<ul class="list">'+data+'</ul>';
 	html += '</div>';
 
