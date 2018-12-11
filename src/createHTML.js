@@ -72,7 +72,7 @@ function getInnerHTML(data){
 	html += '<div class=""><div style="">end time:</div><a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div>';
 	html += '<div class=""><div style="">max price:</div><a href="?p=500">$500</a> / <a href="?p=999">$999</a> /  <a href="?p=2999">$2999</a> /  <a href="?p=5000">$5000</a></div>';
 	html += '<div class=""><div style="">max results:</div><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
-	html += '<div class=""><div style="">sort results:</div>a href="?f=EndTimeSoonest">EndTimeSoonest</a> / <a href="?f=BestMatch">BestMatch</a> /  <a href="?f=PricePlusShippingLowest">PricePlusShippingLowest</a> /  <a href="?f=StartTimeNewest">StartTimeNewest</a></div>';
+	html += '<div class=""><div style="">sort results:</div><a href="?f=EndTimeSoonest">EndTimeSoonest</a> / <a href="?f=BestMatch">BestMatch</a> /  <a href="?f=PricePlusShippingLowest">PricePlusShippingLowest</a> /  <a href="?f=StartTimeNewest">StartTimeNewest</a></div>';
 	html += '<hr>';
 	var sortOps = ["price", "ends"];
 	sortOps.sort();
