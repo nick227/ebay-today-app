@@ -39,37 +39,34 @@ function wrapRow(data){
 
 	return html;
 }
-function genStyle(){
-	return `<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script><style>
-				body{font-family:Roboto;width:100%;height:100%;overflow-x:hidden;}
-				.link{color:blue;text-decoration:underline;cursor:pointer;}
-				.heading{z-index:2;padding:20px 10px; width:200px;text-align:center;}
-				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
-				.item{width:200px; margin:33px 5px 45px 5px;}
-				.item > .inner{min-height:480px;}
-				.row{display:flex; flex-direction:row; width:100%;flex-wrap:wrap;}
-				.main{width:98%;margin:0 1%;}
-				.toggle-box{}.toggle-box:hover{background-color:#aaa;color:#fff;}h3{margin:0;}.menu{}hr{clear:both;}.menu a:hover{background:#eca;cursor:pointer;}.menu a{padding:2px; margin:3px; float:left;}.top-btn{position:fixed;bottom:20px; right:40px;background:#fff;border:1px solid gray;padding:20px 33px}
-				.switch{position: relative; display: inline-block; width: 60px; height: 24px;}.switch input{opacity: 0; width: 0; height: 0;}.slider{position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}.slider:before{position: absolute; content: ""; height: 16px; width: 16px; left: 5px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s;}input:checked + .slider{background-color: green;}input:focus + .slider{box-shadow: 0 0 1px #2196F3;}input:checked + .slider:before{-webkit-transform: translateX(33px); -ms-transform: translateX(33px); transform: translateX(33px);}.slider.round{border-radius: 24px;}.slider.round:before{border-radius: 50%;}
-				</style>`;
-}
 function wrapHTML(data, terms){
+	var html = getHeadHtml(terms);
+	if(data.length > 0){
+		html += getInnerHTML(data);
+	}
+
+	return html;
+}
+function getHeadHtml(terms){
 	var html = '<!doctype html>';
 	html += '<html lang="eng"><head><meta charset="utf-8"><title>ebay app</title></head>';
 	html += '<body><div class="main"><h1>ebay today</h1> <div>by <a href="http://www.atxnick.com">atxnick</a></div>';
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
-	html += genStyle();
+	html += getStyle();
 	html += '<hr>';
 	html += '<h3>categories:</h3>';
 	html += '<div id="top-menu" name="top-menu" class="menu">';
 	for(var i=0; i<terms.length;i++){
-		html += '<a href="'+terms[i]+'">'+terms[i]+'</a>';
+		html += '<a class="link" href="'+terms[i]+'">'+terms[i]+'</a>';
 	}
 	html += '</div>';
-	
-	html += '<hr>';
-	html += '<h3 style="">terms:</h3>';
-	html += '<div class="menu menu-terms"></div>';
+	return html;
+
+}
+function getInnerHTML(data){
+	var html = '<hr>';
+		html += '<h3 style="">terms:</h3>';
+		html += '<div class="menu menu-terms"></div>';
 	html += '<hr>';
 	html += '<h3 style="">request:</h3>';
 	html += '<div class="row"><div style="width:96px;">end time:</div> <a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div>';
@@ -77,8 +74,6 @@ function wrapHTML(data, terms){
 	html += '<div class="row"><div style="width:96px;">max results:</div>  <a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
 	html += '<div class="row"><div style="width:96px;">sort results:</div> <a href="?f=EndTimeSoonest">EndTimeSoonest</a> / <a href="?f=BestMatch">BestMatch</a> /  <a href="?f=PricePlusShippingLowest">PricePlusShippingLowest</a> /  <a href="?f=StartTimeNewest">StartTimeNewest</a></div>';
 	html += '<hr>';
-
-
 	var sortOps = ["price", "ends"];
 	sortOps.sort();
 
@@ -97,8 +92,33 @@ function wrapHTML(data, terms){
 
 
 	html += '<div class="top-btn"><a href="#top-menu" style="font-size:20px;">^ top</a></div>';
-	html += '</div></body>';
-	html += `<script>
+	html += '</div>';
+	html += getJavascript();
+	html += '</body>';
+	html += '</html>';
+
+	return html;
+
+}
+function getStyle(){
+	return `<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script><style>
+				body{font-family:Roboto;width:100%;height:100%;overflow-x:hidden;font-size:17px;}
+				a, .link{color:blue;text-decoration:underline;cursor:pointer;padding:0 5px;}
+				.heading{z-index:2;padding:20px 10px; width:200px;text-align:center;}
+				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
+				.item{width:200px; margin:33px 5px 45px 5px;}
+				.item > .inner{min-height:480px;}
+				.row{display:flex; flex-direction:row; width:100%;flex-wrap:wrap;}
+				.main{width:98%;margin:0 1%;}
+				.toggle-box{}.toggle-box:hover{background-color:#aaa;color:#fff;}h3{margin:0;}.menu{display:flex;flex-wrap:wrap;}hr{clear:both;}.top-btn{position:fixed;bottom:20px; right:40px;background:#fff;border:1px solid gray;padding:20px 33px}
+				.switch{position: relative; display: inline-block; width: 60px; height: 24px;}.switch input{opacity: 0; width: 0; height: 0;}.slider{position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}.slider:before{position: absolute; content: ""; height: 16px; width: 16px; left: 5px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s;}input:checked + .slider{background-color: green;}input:focus + .slider{box-shadow: 0 0 1px #2196F3;}input:checked + .slider:before{-webkit-transform: translateX(33px); -ms-transform: translateX(33px); transform: translateX(33px);}.slider.round{border-radius: 24px;}.slider.round:before{border-radius: 50%;}
+				@media all and (max-width: 699px){
+					body{background:red;}
+				}
+				</style>`;
+}
+function getJavascript(){
+	return `<script>
 	function addSorting(){
 		var options = {
 				valueNames: [ 'price', 'ends']
@@ -139,10 +159,7 @@ function wrapHTML(data, terms){
 					}
 				}
 			})()
-	</script>`;
-	html += '</html>';
-
-	return html;
+	</script>`
 }
 function convertEbayTime(str){
 	var days = str.substring(str.indexOf('P')+1, str.indexOf('D'))
