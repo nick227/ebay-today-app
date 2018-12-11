@@ -49,7 +49,7 @@ function wrapHTML(data, terms){
 }
 function getHeadHtml(terms){
 	var html = '<!doctype html>';
-	html += '<html lang="eng"><head><meta charset="utf-8"><title>ebay app</title></head>';
+	html += '<html lang="eng"><head><meta charset="utf-8"><title>ebay app</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>';
 	html += '<body><div class="main"><h1>ebay today</h1> <div><a href="http://www.atxnick.com">atxnick</a></div>';
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
 	html += getStyle();
@@ -69,10 +69,10 @@ function getInnerHTML(data){
 		html += '<div class="menu menu-terms"></div>';
 	html += '<hr>';
 	html += '<h3 style="">request:</h3>';
-	html += '<div class="row"><div style="width:96px;">end time:</div> <a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div>';
-	html += '<div class="row"><div style="width:96px;">max price:</div> <a href="?p=500">$500</a> / <a href="?p=999">$999</a> /  <a href="?p=2999">$2999</a> /  <a href="?p=5000">$5000</a></div>';
-	html += '<div class="row"><div style="width:96px;">max results:</div>  <a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
-	html += '<div class="row"><div style="width:96px;">sort results:</div> <a href="?f=EndTimeSoonest">EndTimeSoonest</a> / <a href="?f=BestMatch">BestMatch</a> /  <a href="?f=PricePlusShippingLowest">PricePlusShippingLowest</a> /  <a href="?f=StartTimeNewest">StartTimeNewest</a></div>';
+	html += '<div class=""><div style="">end time:</div><a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div>';
+	html += '<div class=""><div style="">max price:</div><a href="?p=500">$500</a> / <a href="?p=999">$999</a> /  <a href="?p=2999">$2999</a> /  <a href="?p=5000">$5000</a></div>';
+	html += '<div class=""><div style="">max results:</div><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
+	html += '<div class=""><div style="">sort results:</div>a href="?f=EndTimeSoonest">EndTimeSoonest</a> / <a href="?f=BestMatch">BestMatch</a> /  <a href="?f=PricePlusShippingLowest">PricePlusShippingLowest</a> /  <a href="?f=StartTimeNewest">StartTimeNewest</a></div>';
 	html += '<hr>';
 	var sortOps = ["price", "ends"];
 	sortOps.sort();
@@ -108,7 +108,7 @@ function getStyle(){
 				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
 				.list-item{width:250px; margin:33px 5px 45px 5px;}
 				.item{width:100%;}
-				h1{text-decoration:underline;}
+				h1{color:#fff;background:#093145;}
 				.item img{width:100%;}
 				.item > .inner{min-height:480px;}
 				.row{display:flex; flex-direction:row; width:100%;flex-wrap:wrap;}
@@ -117,6 +117,7 @@ function getStyle(){
 				.switch{position: relative; display: inline-block; width: 60px; height: 24px;}.switch input{opacity: 0; width: 0; height: 0;}.slider{position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}.slider:before{position: absolute; content: ""; height: 16px; width: 16px; left: 5px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s;}input:checked + .slider{background-color: green;}input:focus + .slider{box-shadow: 0 0 1px #2196F3;}input:checked + .slider:before{-webkit-transform: translateX(33px); -ms-transform: translateX(33px); transform: translateX(33px);}.slider.round{border-radius: 24px;}.slider.round:before{border-radius: 50%;}
 				@media all and (max-width: 720px){
 					body{font-size:20px;}
+					h2.heading, .list-item{width:90%; margin:1%;}
 				}
 				</style>`;
 }
