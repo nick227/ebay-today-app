@@ -1,5 +1,5 @@
 
-function wrapItems(data, key, rowcount){
+function wrapItem(data, key, rowcount){
 	var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11','#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
 	var randoColor = colors[rowcount];
 	var html = '';
@@ -16,7 +16,7 @@ function wrapItems(data, key, rowcount){
 		html += '<li class="list-item term-'+key.replace(/ /g, '')+'">';
 		html += '<div class="item"><div class="inner">';
 		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><h3 style="margin:2px 0;">' + item.title+ '</h3><a>';
-		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><img style="float:left;width:200px;margin-right:10px;" src="'+item.galleryURL+'" /><a>';
+		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><img style="" src="'+item.galleryURL+'" /><a>';
 		html += '<div style="background-color:lightgray;font-weight:900;">Price: <span class="price">$' +item.sellingStatus[0].convertedCurrentPrice[0].__value__ + '</span></div>';
 		if(typeof item.condition==='object' && typeof item.condition[0]==='object' && typeof item.condition[0].conditionDisplayName==='object'){
 			html += '<div>Condition: ' +item.condition[0].conditionDisplayName[0] + '</div>';
@@ -106,28 +106,27 @@ function getStyle(){
 				a, .link{color:blue;text-decoration:underline;cursor:pointer;padding:0 5px;}
 				.heading{z-index:2;padding:20px 10px; width:200px;text-align:center;}
 				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
-				.item{width:200px; margin:33px 5px 45px 5px;}
+				.list-item{width:250px; margin:33px 5px 45px 5px;}
+				.item{width:100%;}
+				h1{text-decoration:underline;}
+				.item img{width:100%;}
 				.item > .inner{min-height:480px;}
 				.row{display:flex; flex-direction:row; width:100%;flex-wrap:wrap;}
 				.main{width:98%;margin:0 1%;}
-				.toggle-box{}.toggle-box:hover{background-color:#aaa;color:#fff;}h3{margin:0;}.menu{display:flex;flex-wrap:wrap;}hr{clear:both;}.top-btn{position:fixed;bottom:20px; right:40px;background:#fff;border:1px solid gray;padding:20px 33px}
+				.toggle-box{}.toggle-box:hover{background-color:#aaa;color:#fff;}.menu{display:flex;flex-wrap:wrap;}hr{clear:both;}.top-btn{position:fixed;bottom:20px; right:40px;background:#fff;border:1px solid gray;padding:20px 33px}
 				.switch{position: relative; display: inline-block; width: 60px; height: 24px;}.switch input{opacity: 0; width: 0; height: 0;}.slider{position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}.slider:before{position: absolute; content: ""; height: 16px; width: 16px; left: 5px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s;}input:checked + .slider{background-color: green;}input:focus + .slider{box-shadow: 0 0 1px #2196F3;}input:checked + .slider:before{-webkit-transform: translateX(33px); -ms-transform: translateX(33px); transform: translateX(33px);}.slider.round{border-radius: 24px;}.slider.round:before{border-radius: 50%;}
-				@media all and (max-width: 600px){
-					body{font-size:22px;background:red;}
+				@media all and (max-width: 720px){
+					body{font-size:20px;}
 				}
 				</style>`;
 }
 function getJavascript(){
 	return `<script>
-	function addSorting(){
+			(function(){
 		var options = {
 				valueNames: [ 'price', 'ends']
 			};
 		var list = new List('main-list', options);
-	}
-			(function(){
-					document.addEventListener("DOMContentLoaded", function() {addSorting();});
-				
 				var menu = document.querySelector('.menu-terms');
 				var terms = document.querySelectorAll('.heading');
 				for(var i=0;i<terms.length;i++){
@@ -169,4 +168,4 @@ function convertEbayTime(str){
 	return {days, hours, minutes, seconds};
 }
 
-module.exports = {wrapRow, wrapItems, wrapHTML};
+module.exports = {wrapRow, wrapItem, wrapHTML};
