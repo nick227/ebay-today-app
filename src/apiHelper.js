@@ -6,7 +6,7 @@ const moment = require('moment');
 const _ = require('underscore');
 const terms = require('./terms');
 
-let {wrapRow, wrapItems, wrapHTML} = require('./createHTML.js');
+let {wrapRow, wrapItem, wrapHTML} = require('./createHTML.js');
 
 function handleRequest(termsAll, req, response){
 	var counter=0;
@@ -40,7 +40,7 @@ function generate(ebay, terms, counter, callback){
 			if(typeof data[0]==='object' && typeof data[0].searchResult[0].item==='object'){
 				let matches = data[0].searchResult[0].item;
 				if(matches.length){
-					html = wrapItems(matches, value, counter);
+					html = wrapItem(matches, value, counter);
 				}
 			}
 	    	combinedHTML += html.toString();
