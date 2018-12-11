@@ -86,15 +86,23 @@ function getJavascript(){
 	return `<script>
 			(function(){
 		var menu = document.querySelector('.menu-terms');
+		var listItems = document.querySelectorAll('.list-item');
 		var termsElms = document.querySelectorAll('.heading');
 		var options = {
 				valueNames: [ 'price', 'ends']
 			};
 		var list = new List('main-list', options);
 		list.on('updated', function(res){
-			for(var i=0;i<termsElms.length;i++){
-					var t = termsElms[i];
-					t.style.display = 'none';
+			if(!this.run){
+				for(var i=0;i<termsElms.length;i++){
+						var t = termsElms[i];
+						t.style.display = 'none';
+				}
+				for(var i=0;i<listItems.length;i++){
+						var l = listItems[i];
+						l.style.display = 'block';
+				}
+				this.run = true;
 			}
 		});
 				for(var i=0;i<termsElms.length;i++){
@@ -112,7 +120,6 @@ function getJavascript(){
 					var key = this.getAttribute('data-elm');
 					var boxes = document.querySelectorAll(key);
 					var status = this.getAttribute('data-status');
-					console.log(status, "?");
 					if(status === 'closed'){
 						this.setAttribute('data-status', 'open');
 						for (i = 0; i < boxes.length; ++i) {
