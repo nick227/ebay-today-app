@@ -1,3 +1,3 @@
 module.exports = {
-	ebay:"xxx-xxx-xxxx-xxxx-xxxx"
+	ebay:"Nicholas-CameraWa-PRD-1c2330161-21998496"
 };
