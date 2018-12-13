@@ -1,10 +1,10 @@
 
 let termsMini = ["canon mark IV"];
 
-let termsBody    = ['panasonic lumix gh4 body', 'panasonic lumix gh5 body', 'canon mark IV body',  'black magic 4k cinema', 'Canon 70d body', 'canon D60 body', 'canon eos 6d II body', 'canon 80D body', 'nikon Nikon D810 body', 'Pentax K-1 Mark II body', 'canon M50 body', 'canon 5D body', 'canon eos-1d x mark body', 'canon rebel t6 body', 'olympus om-d e-m10 body', 'Fujifilm X-T20 body', 'sony a7iii body', 'sony alpha camera body', 'video camcorder'];
+let termsBody    = ['panasonic lumix gh4 body', 'panasonic lumix gh5 body','sony a7 iii body', 'sony a9 body', 'sony alpha camera body', 'canon mark IV body',  'black magic 4k cinema', 'Canon 70d body', 'canon D60 body', 'canon eos 6d II body', 'canon 80D body', 'nikon Nikon D810 body', 'Pentax K-1 Mark II body', 'canon M50 body', 'canon 5D body', 'canon eos-1d x mark body', 'canon rebel t6 body', 'olympus om-d e-m10 body', 'Fujifilm X-T20 body',  'video camcorder'];
 let termsCameras = {termsBody};
 
-let termsLenses1  = ["canon ef lens", 'Sigma lens', 'olympus lens', 'rokinon lens', 'tokina lens', 'lens voigtlander'];
+let termsLenses1  = ["canon ef lens", 'Sigma lens', 'olympus lens', 'sony lens', 'rokinon lens', 'tokina lens', 'lens voigtlander'];
 let termsLenses2  = ['cine camera lens', 'micro four thirds lens', 'prime camera lens', 'zoom camera lens', 'vintage camera lens'];
 let termsLenses  = {termsLenses1, termsLenses2};
 
