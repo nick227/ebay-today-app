@@ -18,10 +18,7 @@ function getHeadHtml(terms){
 	html += '<div id="top-menu" name="top-menu" class="menu">';
 	var className = '';
 	for(var i=0; i<terms.length;i++){
-		if(location.href.indexOf(terms[i]) > -1){
-			className = 'selected';
-		}
-		html += '<a class="link '+className+'" href="'+terms[i]+'">'+terms[i]+'</a>';
+		html += '<a class="link category '+terms[i]+'" href="'+terms[i]+'">'+terms[i]+'</a>';
 	}
 	html += '</div>';
 	return html;
@@ -69,14 +66,14 @@ function getStyle(){
 	return `<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script><style>
 				body{font-family:Roboto;width:100%;height:100%;overflow-x:hidden;font-size:17px;}
 				a, .link{color:blue;text-decoration:underline;cursor:pointer;padding:0 5px;}
-				.heading{z-index:2;padding:20px 10px; width:200px;text-align:center;}
+				.heading{z-index:2;padding:20px 10px; width:150px;text-align:center;font-size:19px;}
 				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
 				.list-item{width:175px; margin:33px 5px 45px 5px;}
 				.item{width:100%;}
 				.selected{color:#000 !important;}
 				h1{color:#fff;background:#093145;}
 				.item img{width:100%;max-width:175px;}
-				.item > .inner{min-height:480px;}
+				.item > .inner{}
 				.row{display:flex; flex-direction:row; width:100%;flex-wrap:wrap;}
 				.main{width:98%;margin:0 1%;}
 				.toggle-box{}.toggle-box:hover{background-color:#aaa;color:#fff;}.menu{display:flex;flex-wrap:wrap;}hr{clear:both;}.top-btn{position:fixed;bottom:20px; right:40px;background:#fff;border:1px solid gray;padding:20px 33px}
@@ -93,6 +90,14 @@ function getJavascript(){
 		var menu = document.querySelector('.menu-terms');
 		var listItems = document.querySelectorAll('.list-item');
 		var termsElms = document.querySelectorAll('.heading');
+		var catElms = document.querySelectorAll('.category');
+		for(var i = 0, length1 = catElms.length; i < length1; i++){
+			var c = catElms[i];
+			var q = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+			if(c.classList.contains(q)){
+				c.style.color = '#000000';
+			}
+		}
 		var options = {
 				valueNames: [ 'price', 'ends']
 			};
@@ -146,7 +151,8 @@ function wrapItem(data, key, rowcount){
 	var randoColor = colors[rowcount];
 	var html = '';
 		html += '<h2 class="heading" id="'+key.replace(/ /g, '').toUpperCase()+data.length+'" style="background:'+randoColor+'">';
-		html += key.toUpperCase()+': '+data.length + '<HR>';
+		html += '<div style="min-height:44px;">';
+		html += key.toUpperCase()+': '+data.length + '</div>' + '<HR>';
 		html += '<div style="">';
 		html += '<label class="switch"><input class="toggle-box" data-status="open" data-elm=".term-'+key.replace(/ /g, '')+'" type="checkbox" checked><span class="slider round"></span></label>';
 		html += '</div>';

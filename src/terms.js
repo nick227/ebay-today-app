@@ -10,11 +10,12 @@ let termsLenses  = {termsLenses1, termsLenses2};
 
 
 let termsLights1  = ["godox flash", 'speedlite flash', 'Yongnuo', 'Wireless Flash'];
-let termsLights2  = ['fresnel lighting', 'video led lighting', 'photography backdrops', 'studio flash photography', 'stage lighting'];
+let termsLights2  = ['fresnel lighting', 'video led lighting', 'studio flash photography', 'stage lighting'];
 let termsLights  = {termsLights1, termsLights2};
 
-let termsGear1   = ['manfrotto', 'DJI Ronin', 'Vanguard tripod', 'gimbal stabilizer', 'tripod', 'monopod', 'camera crane', 'camera slider', 'professional video'];
-let termsGear    = {termsGear1};
+let termsGear1   = ['manfrotto', 'DJI Ronin', 'Vanguard tripod'];
+let termsG2      = ['gimbal stabilizer', 'camera dolly', 'camera crane', 'camera slider', 'camera jib', 'camera bag', 'tripod', 'monopod', 'lens hood', 'camera viewfinder', 'camera filter', 'photography backdrop'];
+let termsGear    = {termsGear1, termsG2};
 
 let termsAu1    = ["rode microphone", 'lavalier mic', 'shotgun microphone', 'professional microphone'];
 let termsAu2   = ['tascam', 'zoom audio', 'digital audio recorder', 'headphones'];
@@ -27,11 +28,11 @@ let termsOther = ["burton snowboard"];
 let termsOthers = {termsOther};
 
 let termsWatch1 = ["timex", "rolex", "movado watch", "seiko watch", "smartwatch", "quartz stainless watch", "fossil watch", "BREITLING watch","armani watch",  "skagen watch", "tag monaco watch", "Panerai Luminor Due", "MONDAINE HELVETICA", "limited luxury watch", "cartier mens watch", "montblanc watch", "Vacheron Constantin", "mens diamond watch", "tag heuer watch"];
+termsWatches = {termsWatch1};
 
 let termsBook = ["graphic novel book", "signed copy book", "first print book", "collectors edition book", "vintage book"];
 let termsBooks = {termsBook};
 */
-termsWatches = {termsWatch1};
 
 let terms = {
 	cameras: termsCameras,
