@@ -19,8 +19,7 @@ let termsGear    = {termsGear1};
 let termsAu1    = ["rode microphone", 'lavalier mic', 'shotgun microphone', 'professional microphone'];
 let termsAu2   = ['tascam', 'zoom audio', 'digital audio recorder', 'headphones'];
 let termsAudio    = {termsAu1, termsAu2};
-
-
+/*
 let termsShoe1 = ["addidas", "nike", "onitsuka shoe", "converse shoe", "puma shoe", "vans shoes", "air jordans", "Bacco Bucci", "Designer Mens shoe", "allen edmonds shoe", "bruno magli shoe", "lululemon shoe", "limited shoes"];
 let termsShoes = {termsShoe1};
 
@@ -31,7 +30,7 @@ let termsWatch1 = ["timex", "rolex", "movado watch", "seiko watch", "smartwatch"
 
 let termsBook = ["graphic novel book", "signed copy book", "first print book", "collectors edition book", "vintage book"];
 let termsBooks = {termsBook};
-
+*/
 termsWatches = {termsWatch1};
 
 let terms = {
@@ -39,7 +38,6 @@ let terms = {
 	lenses: termsLenses,
 	lights: termsLights,
 	audio: termsAudio,
-	books: termsBooks,
 	gear: termsGear
 };
 

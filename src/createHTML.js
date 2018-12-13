@@ -16,8 +16,12 @@ function getHeadHtml(terms){
 	html += '<hr>';
 	html += '<h3>categories:</h3>';
 	html += '<div id="top-menu" name="top-menu" class="menu">';
+	var className = '';
 	for(var i=0; i<terms.length;i++){
-		html += '<a class="link" href="'+terms[i]+'">'+terms[i]+'</a>';
+		if(location.href.indexOf(terms[i]) > -1){
+			className = 'selected';
+		}
+		html += '<a class="link '+className+'" href="'+terms[i]+'">'+terms[i]+'</a>';
 	}
 	html += '</div>';
 	return html;
@@ -69,6 +73,7 @@ function getStyle(){
 				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
 				.list-item{width:175px; margin:33px 5px 45px 5px;}
 				.item{width:100%;}
+				.selected{color:#000 !important;}
 				h1{color:#fff;background:#093145;}
 				.item img{width:100%;max-width:175px;}
 				.item > .inner{min-height:480px;}
