@@ -30,7 +30,7 @@ function getInnerHTML(data){
 	html += '<hr>';
 	html += '<h3 style="">request:</h3>';
 	html += '<div class="row"><div style="">end time:</div><div style=""><a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div></div>';
-	html += '<div class="row"><div style="">max price:</div><div style=""><a href="?p=500">$500</a> / <a href="?p=999">$999</a> /  <a href="?p=2999">$2999</a> /  <a href="?p=all">all</a></div></div>';
+	html += '<div class="row"><div style="">max price:</div><div style=""><a href="?p=500000">$500000</a> / <a href="?p=200">$200</a> / <a href="?p=500">$500</a> / <a href="?p=999">$999</a> /  <a href="?p=2999">$2999</a></div></div>';
 	html += '<div class="row"><div style="">max results:</div><div style=""><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div></div>';
 	html += '<div class="row"><div style="">sort results:</div><div style=""><a href="?f=EndTimeSoonest">EndTimeSoonest</a> / <a href="?f=BestMatch">BestMatch</a> /  <a href="?f=PricePlusShippingLowest">PricePlusShippingLowest</a> /  <a href="?f=StartTimeNewest">StartTimeNewest</a></div></div>';
 	html += '<hr>';
