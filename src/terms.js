@@ -4,7 +4,7 @@ let termsMini = ["canon mark IV"];
 let termsBody    = ['panasonic lumix gh4 body', 'panasonic lumix gh5 body','sony a7 iii body', 'sony a6500 body', 'sony a9 body', 'canon mark IV body',  'black magic 4k cinema', 'Canon 70d body', 'canon D60 body', 'canon M50 body', 'canon 5D body', 'canon eos-1d x mark body', 'canon rebel t6 body', 'canon eos 6d II body', 'canon 80D body', 'Nikon z7 body', 'Nikon D850 body', 'Nikon D750 body', 'Pentax K-1 Mark II body', 'olympus om-d e-m10 body', 'Fujifilm X-T20 body', 'Fujifilm X-T3 body', 'sony alpha camera body',   'video camcorder'];
 let termsCameras = {termsBody};
 
-let termsLenses1  = ["canon ef lens", 'Sigma lens', 'olympus lens', 'sony lens', 'rokinon lens', 'tokina lens', 'lens voigtlander'];
+let termsLenses1  = ["canon ef lens", 'Sigma lens', 'Panasonic Lumix lens', 'Sony lens', 'Rokinon lens', 'Tokina lens', 'Olympus lens', 'Voigtlander lens'];
 let termsLenses2  = ['cine camera lens', 'micro four thirds lens', 'prime camera lens', 'zoom camera lens', 'vintage camera lens'];
 let termsLenses  = {termsLenses1, termsLenses2};
 
