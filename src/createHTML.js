@@ -1,13 +1,11 @@
 
 function wrapHTML(data, terms){
-	var html = getHeadHtml(terms);
-	if(data.length > 0){
-		html += getInnerHTML(data);
-	}
+	var html = openHtml(terms);
+		html += closeHtml(data);
 
 	return html;
 }
-function getHeadHtml(terms){
+function openHtml(terms){
 	var html = '<!doctype html>';
 	html += '<html lang="eng"><head><meta charset="utf-8"><title>ebay app</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>';
 	html += '<body><div class="main"><h1>ebay today</h1> <div><a href="http://www.atxnick.com">atxnick</a></div>';
@@ -24,7 +22,7 @@ function getHeadHtml(terms){
 	return html;
 
 }
-function getInnerHTML(data){
+function closeHtml(data){
 	var html = '<hr>';
 		html += '<h3 style="">found:</h3>';
 		html += '<div class="menu menu-terms"></div>';
@@ -62,6 +60,42 @@ function getInnerHTML(data){
 	return html;
 
 }
+function wrapItem(data, key, rowcount){
+	var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11','#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
+	var randoColor = colors[rowcount];
+	var html = '';
+		html += '<h2 class="heading" id="'+key.replace(/ /g, '').toUpperCase()+data.length+'" style="background:'+randoColor+'">';
+		html += '<div style="min-height:44px;">';
+		html += key.toUpperCase()+': '+data.length + '</div>' + '<HR>';
+		html += '<div style="">';
+		html += '<label class="switch"><input class="toggle-box" data-status="open" data-elm=".term-'+key.replace(/ /g, '')+'" type="checkbox" checked><span class="slider round"></span></label>';
+		html += '</div>';
+		html += '</h2>';
+	for(var index=0;index<data.length;index++){
+		let item = data[index];
+		var {days, hours, minutes, seconds} = convertEbayTime(item.sellingStatus[0].timeLeft.toString());
+		let safeTitle = item.title.toString().replace(/ /g, "-");
+		html += '<li class="list-item term-'+key.replace(/ /g, '')+'">';
+		html += '<div class="item"><div class="inner">';
+		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><h3 style="margin:2px 0;">' + item.title+ '</h3></a>';
+		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><img style="" src="'+item.galleryURL+'" /></a>';
+		html += '<div style="background-color:lightgray;font-weight:900;">Price: <span class="price">$' +item.sellingStatus[0].convertedCurrentPrice[0].__value__ + '</span></div>';
+		if(typeof item.condition==='object' && typeof item.condition[0]==='object' && typeof item.condition[0].conditionDisplayName==='object'){
+			html += '<div>Condition: ' +item.condition[0].conditionDisplayName[0] + '</div>';
+		}
+		html += '<div>Bids: ' +item.sellingStatus[0].bidCount + '</div>';
+		html += '<div>Location: ' +item.location + '</div>';
+		html += '<div>Ends: <span class="ends" style="background:#f9b6b6;">' +days + ' days '+hours+' hours '+minutes+' minutes '+seconds+' seconds</span></div>';
+		html += '</div>';
+		html += '<div><a href="https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords='+encodeURI(item.title)+'" target="_blank">amazon</a>, <a href="https://www.google.com/search?q='+safeTitle+'" target="_blank">google</a></div>';
+		html += '</div>';
+		html += '<hr />';
+		html += '</li>';
+	};
+
+	return html;
+}
+
 function getStyle(){
 	return `<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script><style>
 				body{font-family:Roboto;width:100%;height:100%;overflow-x:hidden;font-size:17px;}
@@ -144,42 +178,6 @@ function getJavascript(){
 				}
 			})()
 	</script>`
-}
-
-function wrapItem(data, key, rowcount){
-	var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11','#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
-	var randoColor = colors[rowcount];
-	var html = '';
-		html += '<h2 class="heading" id="'+key.replace(/ /g, '').toUpperCase()+data.length+'" style="background:'+randoColor+'">';
-		html += '<div style="min-height:44px;">';
-		html += key.toUpperCase()+': '+data.length + '</div>' + '<HR>';
-		html += '<div style="">';
-		html += '<label class="switch"><input class="toggle-box" data-status="open" data-elm=".term-'+key.replace(/ /g, '')+'" type="checkbox" checked><span class="slider round"></span></label>';
-		html += '</div>';
-		html += '</h2>';
-	for(var index=0;index<data.length;index++){
-		let item = data[index];
-		var {days, hours, minutes, seconds} = convertEbayTime(item.sellingStatus[0].timeLeft.toString());
-		let safeTitle = item.title.toString().replace(/ /g, "-");
-		html += '<li class="list-item term-'+key.replace(/ /g, '')+'">';
-		html += '<div class="item"><div class="inner">';
-		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><h3 style="margin:2px 0;">' + item.title+ '</h3></a>';
-		html += '<a target="_blank" href="https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=11800&pub=5575449992&campid=5338422827&mpre='+item.viewItemURL+'"><img style="" src="'+item.galleryURL+'" /></a>';
-		html += '<div style="background-color:lightgray;font-weight:900;">Price: <span class="price">$' +item.sellingStatus[0].convertedCurrentPrice[0].__value__ + '</span></div>';
-		if(typeof item.condition==='object' && typeof item.condition[0]==='object' && typeof item.condition[0].conditionDisplayName==='object'){
-			html += '<div>Condition: ' +item.condition[0].conditionDisplayName[0] + '</div>';
-		}
-		html += '<div>Bids: ' +item.sellingStatus[0].bidCount + '</div>';
-		html += '<div>Location: ' +item.location + '</div>';
-		html += '<div>Ends: <span class="ends" style="background:#f9b6b6;">' +days + ' days '+hours+' hours '+minutes+' minutes '+seconds+' seconds</span></div>';
-		html += '</div>';
-		html += '<div><a href="https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords='+encodeURI(item.title)+'" target="_blank">amazon</a>, <a href="https://www.google.com/search?q='+safeTitle+'" target="_blank">google</a></div>';
-		html += '</div>';
-		html += '<hr />';
-		html += '</li>';
-	};
-
-	return html;
 }
 function wrapRow(data){
 	var html = '<div class="row">';
