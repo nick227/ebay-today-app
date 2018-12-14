@@ -1,6 +1,6 @@
 
 const Ebay = require('./index');
-const EBAY_KEY = require('./private').ebay;
+const EBAY_KEY = require('../private').ebay;
 const async = require('async');
 const moment = require('moment');
 const _ = require('underscore');
