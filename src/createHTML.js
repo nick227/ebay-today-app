@@ -7,8 +7,8 @@ function wrapHTML(data, terms){
 }
 function openHtml(terms){
 	var html = '<!doctype html>';
-	html += '<html lang="eng"><head><meta charset="utf-8"><title>camera watch app</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>';
-	html += '<body><div class="main"><h1>cameras today</h1><h6>no affiliation with ebay</h6> <div><a href="http://www.atxnick.com">atxnick</a></div>';
+	html += '<html lang="eng"><head><meta charset="utf-8"><title>Used Camera Gear</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>';
+	html += '<body><div class="main"><h2>ebay offers</h2><h4>No affiliation with ebay</h4> <div><a href="http://www.atxnick.com">atxnick</a></div>';
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
 	html += getStyle();
 	html += '<hr>';
@@ -46,9 +46,9 @@ function closeHtml(data){
 		}
 	}
 	html += '</div>';
-	html += '<hr>';
 	html += '<ul class="list">'+data+'</ul>';
 	html += '</div>';
+	html += '<hr>';
 
 
 	html += '<div class="top-btn"><a href="#top-menu" style="font-size:20px;">^ top</a></div>';
@@ -98,18 +98,19 @@ function wrapItem(data, key, rowcount){
 
 function getStyle(){
 	return `<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script><style>
-				body{font-family:Roboto;width:100%;height:100%;overflow-x:hidden;font-size:17px;}
+				body{font-family:Roboto;width:100%;height:100%;overflow-x:hidden;font-size:17px;padding:0;margin:0;}
 				a, .link{color:blue;text-decoration:underline;cursor:pointer;padding:0 5px;}
 				.heading{z-index:2;padding:40px 10px 0 10px; width:150px;text-align:center;font-size:19px;}
 				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
 				.list-item{width:175px; margin:33px 5px 45px 5px;}
 				.item{width:100%;}
 				.selected{color:#000 !important;}
-				h1{color:#fff;background:#093145;}
+				h2{color:#fff;background:#093145;}
 				.item img{width:100%;max-width:175px;}
 				.item > .inner{}
 				.row{display:flex; flex-direction:row; width:100%;flex-wrap:wrap;}
-				.main{width:98%;margin:0 1%;}
+				.main{width:100%;margin:0;}
+				.main > *{padding:0 1%;}
 				.toggle-box{}.toggle-box:hover{background-color:#aaa;color:#fff;}.menu{display:flex;flex-wrap:wrap;}hr{clear:both;}.top-btn{position:fixed;bottom:20px; right:40px;background:#fff;border:1px solid gray;padding:20px 33px}
 				.switch{position: relative; display: inline-block; width: 60px; height: 24px;}.switch input{opacity: 0; width: 0; height: 0;}.slider{position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}.slider:before{position: absolute; content: ""; height: 16px; width: 16px; left: 5px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s;}input:checked + .slider{background-color: green;}input:focus + .slider{box-shadow: 0 0 1px #2196F3;}input:checked + .slider:before{-webkit-transform: translateX(33px); -ms-transform: translateX(33px); transform: translateX(33px);}.slider.round{border-radius: 24px;}.slider.round:before{border-radius: 50%;}
 				@media all and (max-width: 720px){
