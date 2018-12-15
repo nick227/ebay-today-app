@@ -7,8 +7,8 @@ function wrapHTML(data, terms){
 }
 function openHtml(terms){
 	var html = '<!doctype html>';
-	html += '<html lang="eng"><head><meta charset="utf-8"><title>ebay app</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>';
-	html += '<body><div class="main"><h1>ebay today</h1> <div><a href="http://www.atxnick.com">atxnick</a></div>';
+	html += '<html lang="eng"><head><meta charset="utf-8"><title>camera watch app</title><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>';
+	html += '<body><div class="main"><h1>cameras today</h1><h6>no affiliation with ebay</h6> <div><a href="http://www.atxnick.com">atxnick</a></div>';
 	html += '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">';
 	html += getStyle();
 	html += '<hr>';
