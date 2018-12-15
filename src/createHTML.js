@@ -61,7 +61,7 @@ function closeHtml(data){
 
 }
 function wrapItem(data, key, rowcount){
-	var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11','#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
+	var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11','#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11','#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11','#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
 	var randoColor = colors[rowcount];
 	var html = '';
 		html += '<h2 class="heading" id="'+key.replace(/ /g, '').toUpperCase()+data.length+'" style="background:'+randoColor+'">';
