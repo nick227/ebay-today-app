@@ -5,7 +5,7 @@ let termsBody    = ['panasonic lumix gh4 body', 'panasonic lumix gh5 body', 'bla
 let termsCameras = {termsBody};
 
 let termsLenses1  = ["canon ef lens", 'Sigma lens', 'Panasonic Lumix lens', 'Sony lens', 'Rokinon lens', 'Tokina lens', 'Olympus lens', 'Voigtlander lens'];
-let termsLenses2  = ['cine camera lens', 'micro four thirds lens', 'prime camera lens', 'zoom camera lens', 'vintage camera lens'];
+let termsLenses2  = ['cine camera lens', 'full frame camera lens', 'micro four thirds lens', 'prime camera lens', 'zoom camera lens', 'vintage camera lens'];
 let termsLenses  = {termsLenses1, termsLenses2};
 
 
