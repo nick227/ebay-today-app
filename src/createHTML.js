@@ -100,7 +100,7 @@ function getStyle(){
 	return `<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script><style>
 				body{font-family:Roboto;width:100%;height:100%;overflow-x:hidden;font-size:17px;padding:0;margin:0;}
 				a, .link{color:blue;text-decoration:underline;cursor:pointer;padding:0 5px;}
-				.heading{z-index:2;padding:40px 10px 0 10px; width:150px;text-align:center;font-size:19px;}
+				.heading{color:black !important; z-index:2;padding:40px 10px 0 10px; width:150px;text-align:center;font-size:19px;}
 				.list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap;padding:0;margin:0;list-style-type:none;}
 				.list-item{width:175px; margin:33px 5px 45px 5px;}
 				.item{width:100%;}
