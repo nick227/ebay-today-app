@@ -19,7 +19,7 @@ let termsLights1  = ["godox flash", 'speedlite flash', 'Yongnuo', 'Wireless Flas
 let termsLights2  = ['fresnel lighting', 'video led lighting', 'studio flash photography', 'stage lighting'];
 let termsLights  = {termsLights1, termsLights2};
 
-let termsGear1   = ['manfrotto', 'DJI Ronin', 'Vanguard tripod'];
+let termsGear1   = ['manfrotto', 'DJI Ronin', 'Vanguard tripod', 'atmos ninja', 'atmos shogun'];
 let termsG2      = ['gimbal stabilizer', 'camera dolly', 'camera crane', 'camera slider', 'camera jib', 'camera bag', 'tripod', 'monopod', 'lens hood', 'camera viewfinder', 'camera filter', 'photography backdrop'];
 let termsGear    = {termsGear1, termsG2};
 
