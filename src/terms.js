@@ -19,8 +19,14 @@ let termsLights1  = ["godox flash", 'speedlite flash', 'Yongnuo', 'Wireless Flas
 let termsLights2  = ['fresnel lighting', 'video led lighting', 'studio flash photography', 'stage lighting'];
 let termsLights  = {termsLights1, termsLights2};
 
-let termsGear1   = ['manfrotto', 'DJI Ronin', 'Vanguard tripod', 'atmos ninja', 'atmos shogun'];
-let termsG2      = ['gimbal stabilizer', 'camera dolly', 'camera crane', 'camera slider', 'camera jib', 'camera bag', 'tripod', 'monopod', 'lens hood', 'camera viewfinder', 'camera filter', 'photography backdrop'];
+let videoRecorders = ['atmos ninja', 'atmos shogun', '4k video recorder monitor'];
+let videoRecTerms = {videoRecorders};
+
+let stablizers = ['DJI Ronin', 'gimbal stabilizer', 'video stabilizer dslr'];
+let stablizersTerms = {stablizers};
+
+let termsGear1   = ['manfrotto', 'Vanguard tripod'];
+let termsG2      = ['camera dolly', 'camera crane', 'camera slider', 'camera jib', 'camera bag', 'tripod', 'monopod', 'lens hood', 'camera viewfinder', 'camera filter', 'photography backdrop'];
 let termsGear    = {termsGear1, termsG2};
 
 let termsAu1    = ["rode microphone", 'lavalier mic', 'shotgun microphone', 'professional microphone'];
@@ -42,6 +48,8 @@ let termsBooks = {termsBook};
 
 let terms = {
 	cameras: termsCameras,
+	recorders:videoRecTerms,
+	stabilizers: stablizersTerms,
 	lenses: termsLenses,
 	lights: termsLights,
 	audio: termsAudio,
