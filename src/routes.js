@@ -11,7 +11,7 @@ function init(app){
 	}
 
 	app.use(function(req, res, next) {
-	    res.status(404).send("Sorry, that route doesn't exist. Have a nice day :)");
+	    res.status(404).send("Sorry, that route doesn't exist. Have a great day :)");
 	});
 
 }
