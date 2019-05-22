@@ -3,8 +3,8 @@ let termsMini = ["canon mark IV"];
 
 let termsBody    = ['panasonic lumix gh4 body', 'panasonic lumix gh5 body'];
 let termsBody2 = ['canon c100', 'canon c300', 'canon mark IV body', 'canon 80D body', 'Canon 70d body', 'canon D60 body', 'canon M50 body', 'canon 5D body', 'canon eos-1d x mark body', 'canon rebel t6 body', 'canon eos 6d II body'];
-let termsBody3 = ['sony a7 iii body', 'sony a6500 body', 'sony a9 body','sony alpha camera body'];
-let termsBody4 = ['black magic 4k cinema'];
+let termsBody3 = ['sony a7 iii body', 'sony a6500 body', 'sony a9 body','sony alpha camera body', 'sony camera body'];
+let termsBody4 = ['black magic 4k cinema', 'blackmagic camera'];
 let termsBody5 = ['Nikon z7 body', 'Nikon D850 body', 'Nikon D750 body'];
 let termsBody6 = ['Pentax K-1 Mark II body', 'olympus om-d e-m10 body', 'Fujifilm X-T20 body', 'Fujifilm X-T3 body'];
 let termsBody7 = ['video camcorder'];
