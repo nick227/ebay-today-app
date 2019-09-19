@@ -29,8 +29,8 @@ function getJavascript(data, route) {
     var tableHeight = 900
     var colData = []
     for (var i = 0, length1 = keys.length; i < length1; i++) {
-        var width = keys[i] === 'title' ? 480 : ''
-        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : true
+        var width = keys[i] === 'title' ? 580 : keys[i] === 'galleryURL' ? 140 : keys[i] === 'term' ? 140 : ''
+        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : keys[i] === 'category' ? false : true
         var formatter = keys[i] === 'galleryURL' ? 'image' : keys[i] === 'links' ? 'html' : 'plaintext'
         var headerFilter = keys[i] === 'galleryURL' ? false : keys[i] === 'endTime' ? false : keys[i] === 'links' ? false : true
         colData.push({ title: keys[i], field: keys[i], width:width, visible:visible, formatter:formatter, headerFilter:headerFilter })
