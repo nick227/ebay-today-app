@@ -19,15 +19,14 @@ let termsLights1  = ["godox flash", 'speedlite flash', 'Yongnuo', 'Wireless Flas
 let termsLights2  = ['fresnel lighting', 'video led lighting', 'studio flash photography', 'stage lighting'];
 let termsLights  = {termsLights1, termsLights2};
 
-let videoRecorders = ['atmos ninja', 'atmos shogun', '4k video recorder monitor'];
+let videoRecorders = ['atomos ninja', 'atomos shogun', '4k video recorder monitor', 'camera field monitor', 'atomos recorder', 'blackmagic video monitor', 'smallhd monitor'];
 let videoRecTerms = {videoRecorders};
 
-let stablizers = ['DJI Ronin', 'gimbal stabilizer', 'video stabilizer dslr'];
+let stablizers = ['DJI Ronin', 'gimbal stabilizer', 'video stabilizer dslr', 'zhiyun crane', 'weebill lab'];
 let stablizersTerms = {stablizers};
 
-let termsGear1   = ['manfrotto', 'Vanguard tripod'];
-let termsG2      = ['camera dolly', 'camera crane', 'camera slider', 'camera jib', 'camera bag', 'tripod', 'monopod', 'lens hood', 'camera viewfinder', 'camera filter', 'photography backdrop'];
-let termsGear    = {termsGear1, termsG2};
+let termsG2      = ['camera dolly', 'camera crane', 'camera slider', 'camera jib', 'camera bag', 'camera tripod', 'monopod', 'lens hood', 'camera viewfinder', 'camera filter', 'photography backdrop'];
+let termsGear    = {termsG2};
 
 let termsAu1    = ["rode microphone", 'lavalier mic', 'shotgun microphone', 'professional microphone'];
 let termsAu2   = ['tascam', 'zoom audio', 'digital audio recorder', 'headphones'];
@@ -43,12 +42,12 @@ let termsWatch1 = ["timex", "rolex", "movado watch", "seiko watch", "smartwatch"
 termsWatches = {termsWatch1};
 
 let termsBook = ["graphic novel book", "signed copy book", "first print book", "collectors edition book", "vintage book"];
-let termsBooks = {termsBook};
+let termsBooks = {termsBook};f
 */
 
 let terms = {
 	cameras: termsCameras,
-	recorders:videoRecTerms,
+	monitors:videoRecTerms,
 	stabilizers: stablizersTerms,
 	lenses: termsLenses,
 	lights: termsLights,

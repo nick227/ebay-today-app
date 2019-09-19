@@ -4,7 +4,7 @@ function wrapHTML(data, terms, route) {
     html += getStyle();
     html += '</head>'
     html += '<body>'
-    html += '<div class="heading"><b>No affiliation with ebay</b>';
+    html += '<div class="heading"><b>No affiliation with ebay: ' + data.length + '</b>';
     html += '<div class="row"><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
     
 
@@ -30,7 +30,7 @@ function getJavascript(data, route) {
     var colData = []
     for (var i = 0, length1 = keys.length; i < length1; i++) {
         var width = keys[i] === 'title' ? 480 : ''
-        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : true
+        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : true
         var formatter = keys[i] === 'galleryURL' ? 'image' : keys[i] === 'links' ? 'html' : 'plaintext'
         var headerFilter = keys[i] === 'galleryURL' ? false : keys[i] === 'endTime' ? false : keys[i] === 'links' ? false : true
         colData.push({ title: keys[i], field: keys[i], width:width, visible:visible, formatter:formatter, headerFilter:headerFilter })

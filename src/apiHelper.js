@@ -13,7 +13,7 @@ function handleRequest(termsAll, req, response, route) {
     var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t) + '.768Z' : calcEndDate('day') + '.768Z';
     var filters = [{ MaxPrice: typeof req.query.p === 'string' ? req.query.p : 500000 }, { MinPrice: 25 }, { EndTimeTo: endDate }, { ListingType: 'Auction' }];
     var sortOrder = typeof req.query.f === 'string' ? req.query.f : 'PricePlusShippingLowest';
-    var limit = typeof req.query.z === 'string' ? req.query.z : 7;
+    var limit = typeof req.query.z === 'string' ? req.query.z : 30;
     let ebay = new Ebay({
         clientID: EBAY_KEY,
         limit: limit,
