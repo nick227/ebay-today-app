@@ -14,7 +14,6 @@ firebase.initializeApp({
 const db = firebase.firestore()
 
 function extract(obj) {
-	console.log(obj)
     return {
         category: obj.category,
         condition: obj.condition,
@@ -38,7 +37,6 @@ data.save = function(data) {
         key = row.term + ' - ' + row.category
         db.collection(key).doc(row.id).get().then(function(r) {
             if (typeof r.data() !== 'object') {
-            	console.log("saving ", key, '-', row.id)
                 db.collection(key).doc(row.id).set(row, { merge: true }).then(function(res, msg) {
                     if (tmpObj.indexOf(key) === -1) {
                         tmpObj.push(key)
@@ -46,7 +44,6 @@ data.save = function(data) {
                     next()
                 })
             }else{
-            	console.log(row.id, " found")
             	next()
             }
         })
