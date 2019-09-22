@@ -26,7 +26,6 @@ function wrapHTML(data, terms, route) {
 function getJavascript(data, route) {
     var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
     var keys = data[0] ? Object.keys(data[0]) : []
-    var tableHeight = 900
     var colData = []
     for (var i = 0, length1 = keys.length; i < length1; i++) {
         var width = keys[i] === 'title' ? 580 : keys[i] === 'galleryURL' ? 140 : keys[i] === 'term' ? 140 : keys[i] === 'history' ? 90 : ''
@@ -44,7 +43,6 @@ function getJavascript(data, route) {
             (function(){
                 var tableTabulator = new Tabulator("#table-tabulator", {
                     index:"id",
-                    height: ` + tableHeight + `,
                     data: ` + JSON.stringify(data) + `,
                     layout: "fitColumns",
                     columns: ` + JSON.stringify(colData) + `,
