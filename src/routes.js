@@ -18,7 +18,6 @@ function init(app){
 
 function addRoute(route, app){
 	app.get('/'+route, function(req, response){
-		console.log("s")
 		terms = termsAll[route];
 		handleRequest(terms, req, response, route);
 	});
