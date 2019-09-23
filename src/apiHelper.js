@@ -9,15 +9,28 @@ const dataObj = require('./data')
 var { wrapHTML } = require('./createHTML.js')
 var fresh = false
 
-function handleRequest(termsAll, req, response, route) {
-	if(fresh){
+var timer = Date.now()
+        var key = null
+        var keys = []
 
-	}else{
-		requestEbay(termsAll, req, response, route)
-	}
+function handleRequest(termsAll, req, response, route) {
+    console.log("^^^^^^^^^")
+    console.log("go!", timer)
+    if(route === 'calculations'){
+        console.log("shiiiiit")
+
+        dataObj.getCalculations(keys, function(calcData) {
+            console.log(calcData)
+
+        response.send(calcData)
+        })
+    }else{
+        requestEbay(termsAll, req, response, route)
+
+    }
 }
 
-function requestEbay(termsAll, req, response, route){
+function requestEbay(termsAll, req, response, route) {
     var counter = 0
     var resAll = []
     var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t) + '.768Z' : calcEndDate('day') + '.768Z'
@@ -33,13 +46,29 @@ function requestEbay(termsAll, req, response, route){
     })
     async.mapSeries(termsAll, (terms, next) => {
         generate(ebay, terms, counter, function(obj) {
+            console.log("ebay1!", timer - Date.now())
             resAll = resAll.concat(obj)
             next()
         })
         counter++
     }, (err, res) => {
         if (err) { console.error(err.message) }
-        finish(response, resAll, route)
+        console.log("ebay done", timer - Date.now())
+        for (var i = 0, length1 = resAll.length; i < length1; i++) {
+            key = resAll[i].term + ' - ' + resAll[i].category
+            if (keys.indexOf(key) === -1) {
+                keys.push(key)
+            }
+        }
+            let html = wrapHTML(resAll, Object.keys(terms), route)
+            console.log("all done!!!", timer - Date.now())
+            console.log("-----------")
+            response.send(html)
+
+
+
+
+
     })
 
 }
@@ -48,14 +77,12 @@ function generate(ebay, terms, counter, callback) {
     var combinedRes = []
     async.mapSeries(terms, (value, next) => {
         ebay.findItemsByKeywords(value).then((data) => {
-            if (data[0].ack[0] !== 'Success') {
-                return false
-            }
             let res = {}
             if (typeof data[0] === 'object' && typeof data[0].searchResult[0].item === 'object') {
                 let matches = data[0].searchResult[0].item
                 let res = []
                 if (matches.length) {
+                    console.log(matches.length)
                     for (var i = 0, length1 = matches.length; i < length1; i++) {
                         res.push(formatObj(matches[i], value))
                     }
@@ -116,35 +143,17 @@ function calcEndDate(type) {
     return obj[type]
 }
 
-function finish(res, data, route) {
-    dataObj.save(data)
 
-    var key = null
-    var keys = []
+function attachCalculations(obj, data) {
     for (var i = 0, length1 = data.length; i < length1; i++) {
-        key = data[i].term + ' - ' + data[i].category
-        if (keys.indexOf(key) === -1) {
-            keys.push(key)
-        }
-    }
-    dataObj.getCalculations(keys, function(calcData) {
-    	attachCalculations(calcData, data)
-        let html = wrapHTML(data, Object.keys(terms), route)
-        res.send(html)
-
-    })
-
-}
-function attachCalculations(obj, data){
-	for (var i = 0, length1 = data.length; i < length1; i++){
         let dataRow = data[i]
         let key = dataRow.term + ' - ' + dataRow.category
         let calcRow = obj.find(o => {
-        	return o.key === key
+            return o.key === key
         })
         dataRow.average = calcRow.avg.toFixed(0)
         dataRow.numFound = calcRow.count.toFixed(0)
         dataRow.difference = (parseInt(dataRow.price) - calcRow.avg).toFixed(0)
-	}
+    }
 }
 module.exports = handleRequest
