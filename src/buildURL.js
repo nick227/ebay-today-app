@@ -32,6 +32,27 @@ const buildURL = {
         }
         return base_url;
     },
+    buildAdvancedSearchUrl(options) {
+        let base_url = "http://svcs.ebay.com/services/search/FindingService/v1?";
+        base_url += "SECURITY-APPNAME=" + options.clientID;
+        base_url += "&OPERATION-NAME=" + options.operationName;
+        base_url += "&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON";
+        base_url += options.keywords ? "&" + "keywords" + "=" + options.keywords : '';
+        base_url += options.categoryId ? "&" + "categoryId" + "=" + options.categoryId : '';
+        base_url += options.limit ? "&paginationInput.entriesPerPage=" + options.limit : '';
+        base_url += options.globalID ? "&GLOBAL-ID=" + options.globalID : '';
+        base_url += options.sortOrder ? "&sortOrder=" + options.sortOrder : '';
+        if(options.filters.length){
+          let count=0;
+          for(var i=0;i<options.filters.length;i++){
+            let key = Object.keys(options.filters[i])[0];
+            let val = options.filters[i][key];
+            base_url += "&itemFilter("+count+").name="+key+"&itemFilter("+count+").value=" + val;
+            count++;
+          }
+        }
+        return base_url;
+    },
 
     /**
    * Builds the Shopping(open api)  URL.

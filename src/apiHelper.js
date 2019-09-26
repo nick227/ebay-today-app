@@ -9,6 +9,7 @@ const dataObj = require('./data')
 var { wrapHTML } = require('./createHTML.js')
 var fresh = false
 
+    var n = 0
 var timer = Date.now()
         var key = null
         var keys = []
@@ -16,13 +17,17 @@ var timer = Date.now()
 function handleRequest(termsAll, req, response, route) {
     console.log("^^^^^^^^^")
     console.log("go!", timer)
-    if(route === 'calculations'){
-        console.log("shiiiiit")
+    if(route === 'history'){
+        dataObj.getHistory(req.query.k, function(historyData){
+            response.send(historyData)
+
+        })
+    }
+    else if(route === 'calculations'){
 
         dataObj.getCalculations(keys, function(calcData) {
-            console.log(calcData)
 
-        response.send(calcData)
+            response.send(calcData)
         })
     }else{
         requestEbay(termsAll, req, response, route)
@@ -63,12 +68,9 @@ function requestEbay(termsAll, req, response, route) {
             let html = wrapHTML(resAll, Object.keys(terms), route)
             console.log("all done!!!", timer - Date.now())
             console.log("-----------")
-            response.send(html)
-
-
-
-
-
+                response.send(html)
+            dataObj.save(resAll, function(){
+            })
     })
 
 }
@@ -78,14 +80,15 @@ function generate(ebay, terms, counter, callback) {
     async.mapSeries(terms, (value, next) => {
         ebay.findItemsByKeywords(value).then((data) => {
             let res = {}
-            if (typeof data[0] === 'object' && typeof data[0].searchResult[0].item === 'object') {
+            if (data[0].ack[0] === 'Success' && data[0].searchResult[0].item) {
                 let matches = data[0].searchResult[0].item
                 let res = []
                 if (matches.length) {
-                    console.log(matches.length)
+                    console.log("match len: ", matches.length)
                     for (var i = 0, length1 = matches.length; i < length1; i++) {
                         res.push(formatObj(matches[i], value))
                     }
+                    n++
                     combinedRes = combinedRes.concat(res)
                 }
             }
@@ -94,7 +97,6 @@ function generate(ebay, terms, counter, callback) {
             callback(error)
         })
     }, err => {
-        if (err) { callback(err) }
         callback(combinedRes)
     })
 }
@@ -109,7 +111,6 @@ function convertEbayTime(str) {
 
 
 function formatObj(item, term) {
-
     var res = {}
     var { days, hours, minutes, seconds } = convertEbayTime(item.sellingStatus[0].timeLeft.toString())
     res['id'] = item.itemId[0]
@@ -118,16 +119,17 @@ function formatObj(item, term) {
     res['title'] = item.title[0]
     res['price'] = item.sellingStatus[0].currentPrice[0]['__value__']
     res['average'] = '<div class="average"></div>'
-    res['difference'] = '<div class="difference" data-id="' + res['id'] + '" data-key="' + res['term'] + ' - ' + res['category'] + '" data-price="' + res['price'] + '"></div>'
+    res['difference'] = '<div class="difference"></div>'
     res['numFound'] = '<div class="numFound"></div>'
     res['condition'] = item.condition ? item.condition[0]['conditionDisplayName'][0] : ''
     res['location'] = item.location[0]
     res['endTime'] = days + ' days ' + hours + ' hours ' + minutes + ' minutes ' + seconds + ' seconds'
+    res['endDate'] = item.listingInfo[0].endTime.toString()
     res['type'] = item.listingInfo[0]['listingType'][0]
     res['viewItemURL'] = item.viewItemURL[0]
     res['links'] = '<a href="' + item.viewItemURL[0] + '" target="_blank">ebay</a><BR><a href="https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=' + encodeURI(item.title[0]) + '" target="_blank">amazon</a><BR><a href="https://www.google.com/search?q=' + encodeURI(item.title[0]) + '" target="_blank">google</a>'
     res['galleryURL'] = item.galleryURL[0]
-    res['history'] = '<label class="switch"><input class="toggle-history" data-id="' + res['id'] + '" type="checkbox"><span class="slider round"></span></label>'
+    res['history'] = '<label class="switch"><input class="toggle-history"  data-id="' + res['id'] + '" data-key="' + res['term'] + ' - ' + res['category'] + '" data-price="' + res['price'] + '" type="checkbox"><span class="slider round"></span></label>'
 
     return res
 }

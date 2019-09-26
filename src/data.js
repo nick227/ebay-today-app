@@ -21,7 +21,7 @@ firebase.initializeApp({
     appId: "1:306334346433:web:5ee9f8e1f2223df656f840"
 });
 const db = firebase.firestore()
-
+var timer = Date.now()
 function extract(obj) {
     return {
         category: obj.category,
@@ -29,12 +29,23 @@ function extract(obj) {
         id: obj.id,
         location: obj.location,
         price: obj.price,
-        endDate:obj.endTime,
+        endDate:obj.endDate,
         term: obj.term,
         title: obj.title,
         type: obj.type,
         url: obj.viewItemURL
     }
+}
+data.getHistory = function(key, callback){
+    var res = []
+        db.collection(key).get().then(function(snapshot) {
+
+        snapshot.forEach(function(doc, index) {
+            res.push(doc.data())
+        });
+        console.log(key, res)
+            callback(res)
+        })
 }
 data.save = function(data, callback) {
     let tmpObj = []
@@ -44,10 +55,12 @@ data.save = function(data, callback) {
     async.mapSeries(data, (row, next) => {
         row = extract(row)
         key = row.term + ' - ' + row.category
+        console.log("get: ",key,row.id)
         db.collection(key).doc(row.id).get().then(function(r) {
             if (typeof r.data() !== 'object') {
-                console.log("object writing: ", key, row.id)
+                console.log("not found")
                 db.collection(key).doc(row.id).set(row, { merge: true }).then(function(res, msg) {
+                    console.log("ok write",key,  row.id, row)
                     if (tmpObj.indexOf(key) === -1) {
                         tmpObj.push(key)
                     }
@@ -59,7 +72,7 @@ data.save = function(data, callback) {
         })
 
     }, function(err, results) {
-	console.log("finish write", Date.now())
+	console.log("finished firebase item save", timer-Date.now())
         for (var i = 0, length1 = tmpObj.length; i < length1; i++) {
             calculateAgg(tmpObj[i], callback)
         }
@@ -71,8 +84,8 @@ data.save = function(data, callback) {
 data.getCalculations = function(keys, callback) {
     var results = []
     async.mapSeries(keys, (value, next) => {
+        console.log('key', '==', value)
         db.collection('calculations').where('key', '==', value).get().then(function(querySnapshot) {
-            console.log(value, ".", querySnapshot.length)
             querySnapshot.forEach(function(doc) {
                 results.push(doc.data())
             });
@@ -85,7 +98,7 @@ data.getCalculations = function(keys, callback) {
 }
 
 function calculateAgg(key, callback) {
-    console.log("get: ", key)
+    console.log("read: ", key)
     db.collection(key).get().then(function(snapshot) {
         var c = 0
         var total = 0
@@ -95,9 +108,9 @@ function calculateAgg(key, callback) {
         });
         var avg = total / c
         var payload = { key: key, avg: avg, total: total, count: c }
-        console.log("agg writing: ", key, payload)
+        console.log("calc writing: ", key, payload)
         db.collection('calculations').doc(key).set(payload, { merge: true }).then(function(res) {
-	console.log("finish writing agg", Date.now())
+    console.log("finished firebase calc", timer-Date.now())
             console.log("calc updated")
             callback(res)
         })

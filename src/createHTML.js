@@ -1,10 +1,11 @@
 function wrapHTML(data, terms, route) {
     var html = '<!doctype html>';
-    html += '<html lang="eng"><head><meta charset="utf-8"><title>'+route+'</title><meta name="viewport" content="width=device-width,initial-scale=1.0">';
+    html += '<html lang="eng"><head><meta charset="utf-8"><title>' + route + '</title><meta name="viewport" content="width=device-width,initial-scale=1.0">';
     html += getStyle();
     html += '</head>'
     html += '<body>'
     html += '<div class="row"><b>No affiliation with ebay: ' + data.length + '</b>';
+    html += '<div style=""><a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div>';
     html += '<div><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
 
 
@@ -29,7 +30,7 @@ function getJavascript(data) {
     var colData = []
     for (var i = 0, length1 = keys.length; i < length1; i++) {
         var width = keys[i] === 'title' ? 580 : keys[i] === 'galleryURL' ? 140 : keys[i] === 'term' ? 140 : keys[i] === 'history' ? 90 : ''
-        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : true
+        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : keys[i] === 'endDate' ? false : true
         var formatter = keys[i] === 'galleryURL' ? 'image' : 'html'
         var headerFilter = keys[i] === 'galleryURL' ? false : keys[i] === 'endTime' ? false : keys[i] === 'links' ? false : keys[i] === 'history' ? false : true
         colData.push({ title: keys[i], field: keys[i], width: width, visible: visible, formatter: formatter, headerFilter: headerFilter })
@@ -105,43 +106,69 @@ function getJavascript(data) {
                     data: ` + JSON.stringify(data) + `,
                     layout: "fitColumns",
                     columns: ` + JSON.stringify(colData) + `
-                });/*
-                fetch(base_url + '/calculations?price=33.33&id=723y73').then(function(res){
+                });
+                setTimeout(function(){loadCalcs(tableTabulator)}, 3333)
+                function loadCalcs(tableTabulator){
+
+                fetch(base_url + '/calculations').then(function(res){
                      res.json().then(function(json) {
-                        console.log(json)
                         var tableData = tableTabulator.getData();
                         for(var i = 0, length1 = tableData.length; i < length1; i++){
                             var price = tableData[i].price
                             var key = tableData[i].term + ' - ' + tableData[i].category
                             var calcRow = findRow(key, json)
-                            console.log(calcRow)
-                            tableTabulator.updateRow(i, [{difference:1, average:"bob", numFound:"male"}]);
+                            tableTabulator.updateData([{id:tableData[i].id,difference:(price - calcRow.avg).toFixed(0), average:(calcRow.avg).toFixed(0), numFound:calcRow.count}]);
                         }
                      });
                 })
+                }
                 function findRow(key, json){
                     for(var i = 0, length1 = json.length; i < length1; i++){
                         if(json[i].key === key){
                             return json[i]
                         }
                     }
-                }*/
+                }
                 function toggleHistory(elm){
+                    var key = elm.target.getAttribute('data-key')
+                    var id = elm.target.getAttribute('data-id')
                     var row = elm.target.parentNode.parentNode.parentNode
-                    var elm = row.querySelector('.drawer')
-                    if(!elm){
-                        elm  = document.createElement('div')
-                        elm.classList.add('drawer')
-                        elm.innerHTML = 'ok'
-                        row.appendChild(elm)
+                    var drawer = row.querySelector('.drawer')
+                    if(!drawer){
+
+                        fetch(base_url + '/history?k='+escape(key)).then(function(res){
+                             res.json().then(function(json) {
+                                drawer  = document.createElement('div')
+                                drawer.classList.add('drawer')
+                                drawer.setAttribute('data-key', key)
+                                drawer.setAttribute('id', 'drawer-' + id)
+                                var colTits = Object.keys(json[0])
+                                var colData = []
+                                for(var i = 0, length1 = colTits.length; i < length1; i++){        
+                                    var visible = colTits[i] === 'id' ? false : colTits[i] === 'term' ? false : colTits[i] === 'category' ? false : true
+                                    var width = ''
+                                    colData.push({ title: colTits[i], field: colTits[i], width:width, visible:visible })
+                                }
+                                row.appendChild(drawer)
+                                var innerTable = new Tabulator('#drawer-' + id, {
+                                    index:'id',
+                                    data:json,
+                                    layout:"fitColumns",
+                                    columns: colData, 
+                                    rowClick:function(e, row){
+                                        var win = window.open(row.getData().url, '_blank')
+                                        win.focus()
+                                    }
+                                })
+                                })
+                             });
                     }else{
-                        if(elm.classList.contains('hidden')){
-                            elm.classList.remove('hidden')
+                        if(drawer.classList.contains('hidden')){
+                            drawer.classList.remove('hidden')
                         }else{
-                            elm.classList.add('hidden')
+                            drawer.classList.add('hidden')
                         }
                     }
-
                 }
                 var btns = document.querySelectorAll('.toggle-history')
                 var btn = null
@@ -176,9 +203,11 @@ function getStyle() {
                     width:100%;
                 }
                 .drawer{
-                    width:100%;
-                    height:300px;
-                    background:#ccc;
+                    height:auto;
+                    background:#fff !important;
+                    padding-bottom:90px;
+                    border-top:2px solid black;
+                    border-bottom:2px solid black;
                 }
                 .heading{
                     margin:10px;
@@ -231,17 +260,17 @@ function getStyle() {
 .slider:before {
   position: absolute;
   content: "";
-  height: 50px;
+  height: 50%;
   width: 90px;
   left: 0;
   top: 0;
-  background-color: darkgray;
+  background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #888;
+  background-color: white;
 }
 
 input:focus + .slider {
@@ -249,9 +278,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateY(90px);
-  -ms-transform: translateY(90px);
-  transform: translateY(90px);
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
 }
                 </style>`;
 }

@@ -22,6 +22,20 @@ function Ebay(options) {
 
 Ebay.prototype = {
 
+    findItemsAdvanced: function (keywords, categoryId) {
+        if (!keyword) throw new Error("Keyword is missing, Keyword is required");
+        this.options.name = keyword;
+        this.options.operationName = "findItemsAdvanced";
+        this.options.keywords = keywords;
+        this.options.categoryId = categoryId;
+        let url = urlObject.buildAdvancedSearchUrl(this.options);
+        return getRequest(url).then((data) => {
+            let result = JSON.parse(data);
+            return result["findItemsByKeywordsResponse"];
+
+        }, console.error
+    )},
+
     findItemsByKeywords: function (keyword) {
         if (!keyword) throw new Error("Keyword is missing, Keyword is required");
         this.options.name = keyword;

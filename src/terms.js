@@ -6,7 +6,7 @@ let termsBody3 = ['sony fs5 camera', 'sony fs7 camera', 'black magic cinema came
 let termsBody5 = ['red dragon camera body', 'red camera digital cinema', 'Fujifilm X-T20 body', 'Fujifilm X-T3 body'];
 let termsCameras = {termsBody, termsBody3, termsBody5};
 
-let termsLenses1  = ["ef mount lens", "Parfocal Lens", "Cine lens", 'micro four thirds lens', 'SLR Magic lens'];
+let termsLenses1  = ["ef mount lens", "Parfocal Lens", "Cine lens", 'micro four thirds lens', 'SLR Magic lens', 'cinema prime lens'];
 let termsLenses  = {termsLenses1};
 
 
@@ -16,7 +16,7 @@ let termsLights  = {termsLights1};
 let videoRecorders = ['atomos ninja', 'atomos shogun', 'atomos recorder', 'blackmagic video monitor', 'smallhd monitor', '4k video recorder monitor', 'camera field monitor'];
 let videoRecTerms = {videoRecorders};
 
-let stablizers = ['DJI Ronin', 'zhiyun crane', 'weebill lab', 'gimbal stabilizer'];
+let stablizers = ['DJI Ronin', 'zhiyun gimbal stabilizer', 'weebill lab gimbal stabilizer', 'Movo gimbal stabilizer', 'FLYCAM Stabilizing Arm Video Vest', 'Wireless Motorized Camera Slider', 'Movo Steadycam System', 'Glidecam Professional Camera Stabilization System'];
 let stablizersTerms = {stablizers};
 
 let termsG2      = ['camera dolly', 'camera crane', 'camera slider', 'camera jib', 'camera bag', 'camera tripod', 'monopod', 'lens hood', 'camera viewfinder', 'camera follow-focus', 'video matte box'];
