@@ -39,7 +39,7 @@ let termsWatch1 = ["timex", "rolex", "movado watch", "seiko watch", "smartwatch"
 termsWatches = {termsWatch1};
 */
 
-let vidCards = ["Nvidia GeForce RTX 2080 Ti", "Nvidia GeForce RTX 2080 Ti", "AMD Ryzen", "intel core i9", "EVGA GeForce RTX 2080", "AMD Radeon Pro", "video card gpu 16gb", "Intel Xeon processor cpu" "AMD Epyc processor cpu"];
+let vidCards = ["Nvidia GeForce RTX 2080 Ti", "Nvidia GeForce RTX 2080 Ti", "AMD Ryzen", "intel core i9", "EVGA GeForce RTX 2080", "AMD Radeon Pro", "video card gpu 16gb", "Intel Xeon processor cpu", "AMD Epyc processor cpu"];
 let termsvidCards = {vidCards};
 
 let terms = {
