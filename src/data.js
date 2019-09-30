@@ -42,8 +42,7 @@ data.getHistory = function(key, callback){
 
         snapshot.forEach(function(doc, index) {
             res.push(doc.data())
-        });
-        console.log(key, res)
+        })
             callback(res)
         })
 }
@@ -54,13 +53,10 @@ data.save = function(data, callback) {
 
     async.mapSeries(data, (row, next) => {
         row = extract(row)
-        key = row.term + ' - ' + row.category
-        console.log("get: ",key,row.id)
+        key = row.term + ' - ' + row.category.replace('/','-')
         db.collection(key).doc(row.id).get().then(function(r) {
             if (typeof r.data() !== 'object') {
-                console.log("not found")
                 db.collection(key).doc(row.id).set(row, { merge: true }).then(function(res, msg) {
-                    console.log("ok write",key,  row.id, row)
                     if (tmpObj.indexOf(key) === -1) {
                         tmpObj.push(key)
                     }
@@ -84,7 +80,6 @@ data.save = function(data, callback) {
 data.getCalculations = function(keys, callback) {
     var results = []
     async.mapSeries(keys, (value, next) => {
-        console.log('key', '==', value)
         db.collection('calculations').where('key', '==', value).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
                 results.push(doc.data())

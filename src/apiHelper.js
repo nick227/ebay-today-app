@@ -149,7 +149,7 @@ function calcEndDate(type) {
 function attachCalculations(obj, data) {
     for (var i = 0, length1 = data.length; i < length1; i++) {
         let dataRow = data[i]
-        let key = dataRow.term + ' - ' + dataRow.category
+        let key = dataRow.term + ' - ' + dataRow.category.replace('/','-')
         let calcRow = obj.find(o => {
             return o.key === key
         })

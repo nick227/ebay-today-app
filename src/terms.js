@@ -38,6 +38,10 @@ let termsBook = ["graphic novel book", "signed copy book", "first print book", "
 let termsBooks = {termsBook};f
 */
 
+
+let vidCards = ["AMD Ryzen", "intel core i9", "EVGA GeForce RTX 2080", "AMD Radeon Pro", "video card gpu 16gb", "Intel Xeon processor cpu", "AMD Epyc processor cpu"];
+let termsvidCards = {vidCards};
+
 let terms = {
 	cameras: termsCameras,
 	monitors:videoRecTerms,
@@ -46,6 +50,7 @@ let terms = {
 	lights: termsLights,
 	audio: termsAudio,
 	miscellaneous: termsGear,
+	workstation: termsvidCards,
 	test: termsMini
 };
 
