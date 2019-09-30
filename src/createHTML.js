@@ -1,12 +1,11 @@
 function wrapHTML(data, terms, route) {
     var html = '<!doctype html>';
-    html += '<html lang="eng"><head><meta charset="utf-8"><title>' + route + '</title><meta name="viewport" content="width=device-width,initial-scale=1.0">';
+    html += '<html lang="eng"><head><meta charset="utf-8"><title>Camera prices</title><meta name="viewport" content="width=device-width,initial-scale=1.0">';
     html += getStyle();
     html += '</head>'
     html += '<body>'
-    html += '<div class="row"><b>No affiliation with ebay: ' + data.length + '</b>';
-    html += '<div style=""><a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div>';
-    html += '<div><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
+    html += '<div class="heading"><b>No affiliation with ebay: ' + data.length + '</b>';
+    html += '<div class="row"><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
 
 
 
@@ -15,160 +14,57 @@ function wrapHTML(data, terms, route) {
     for (var i = 0; i < terms.length; i++) {
         html += '<option class="sort" data-sort="" value="' + terms[i] + '">' + terms[i] + '</option>';
     }
-    html += '</select><div id="firebaseui-auth-container"></div>';
+    html += '</select>';
     html += '</div>';
     html += '<div id="table-tabulator"></div>';
-    html += getJavascript(data);
+    html += getJavascript(data, route);
     html += '</body>';
     html += '</html>';
     return html;
 }
 
-function getJavascript(data) {
+function getJavascript(data, route) {
     var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
     var keys = data[0] ? Object.keys(data[0]) : []
+    var tableHeight = 900
     var colData = []
     for (var i = 0, length1 = keys.length; i < length1; i++) {
         var width = keys[i] === 'title' ? 580 : keys[i] === 'galleryURL' ? 140 : keys[i] === 'term' ? 140 : keys[i] === 'history' ? 90 : ''
-        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : keys[i] === 'endDate' ? false : true
-        var formatter = keys[i] === 'galleryURL' ? 'image' : 'html'
+        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : true
+        var formatter = keys[i] === 'galleryURL' ? 'image' : keys[i] === 'links' ? 'html' : keys[i] === 'history' ? 'html' : 'plaintext'
         var headerFilter = keys[i] === 'galleryURL' ? false : keys[i] === 'endTime' ? false : keys[i] === 'links' ? false : keys[i] === 'history' ? false : true
         colData.push({ title: keys[i], field: keys[i], width: width, visible: visible, formatter: formatter, headerFilter: headerFilter })
     }
-    return `<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-        <link href="https://unpkg.com/tabulator-tables@4.4.1/dist/css/tabulator.min.css" rel="stylesheet">
-        <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.4.1/dist/js/tabulator.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
-        <script>
+    return `<link href="https://unpkg.com/tabulator-tables@4.4.1/dist/css/tabulator.min.css" rel="stylesheet">
+        <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.4.1/dist/js/tabulator.min.js"></script><script>
             (function(){
-                var base_url = window.location.origin;
-                var pathArray = window.location.pathname.split( '/' );
-                var firebaseConfig = {
-                    apiKey: 'AIzaSyBNfmTvaAb30R0IoeZ0thow7EFTffDJ4Bg',
-                    databaseURL: 'https://camera-watcher-7dd72.firebaseio.com',
-                    authDomain: 'camera-watcher-7dd72.firebaseapp.com'
-                }
-
-                var uiConfig = {
-                    signInSuccessUrl: window.location.href,
-                    signInOptions: [
-                        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-                    ]
-                }
-                var app = firebase.initializeApp(firebaseConfig)
-                var auth = app.auth()
-                var ui = new firebaseui.auth.AuthUI(auth)
-                ui.start('#firebaseui-auth-container', uiConfig)
-
-             firebase.auth().onAuthStateChanged(function(user) {
-                  if (user && user.uid != null) {  
-                    var accessToken = null;
-
-                    firebase.auth().currentUser
-                        .getIdToken()
-                        .then(function (token) {});
 
 
-                    var img = document.createElement('img')
-                    img.classList.add('avatar')
-                    var a = document.createElement('a')
-                    a.textContent = 'Sign Out'
-                    a.onclick = function(){
-                            firebase.auth().signOut().then(function(){
-                            document.querySelector('#firebaseui-auth-container').querySelector('.firebaseui-container').classList.remove('hidden')
-                            var avatar = document.querySelector('#firebaseui-auth-container').querySelector('.avatar-container')
-                            avatar.parentNode.removeChild(avatar)
-
-                        })
-                    }
-                    var div = document.createElement('div')
-                    div.classList.add('avatar-container')
-                    var txt = document.createElement('div')
-                    img.setAttribute('src', user.photoURL)
-                    txt.textContent = user.displayName
-                    div.appendChild(img)
-                    div.appendChild(txt)
-                    div.appendChild(a)
-                    document.querySelector('#firebaseui-auth-container').querySelector('.firebaseui-container').classList.add('hidden')
-                    document.querySelector('#firebaseui-auth-container').appendChild(div)
-              }else{
-                if(pathArray[1].length){
-                    window.location.href=base_url
-                }
-
-              }
-             });
-                var tableTabulator = new Tabulator("#table-tabulator", {
-                    index:"id",
+                var table = new Tabulator("#table-tabulator", {
+                    height: ` + tableHeight + `,
                     data: ` + JSON.stringify(data) + `,
                     layout: "fitColumns",
-                    columns: ` + JSON.stringify(colData) + `
+                    columns: ` + JSON.stringify(colData) + `,
+                    rowClick: function(e, row) {
+                        //window.location.href = row.getData().viewItemURL
+                    },
                 });
-                setTimeout(function(){loadCalcs(tableTabulator)}, 3333)
-                function loadCalcs(tableTabulator){
-
-                fetch(base_url + '/calculations').then(function(res){
-                     res.json().then(function(json) {
-                        var tableData = tableTabulator.getData();
-                        for(var i = 0, length1 = tableData.length; i < length1; i++){
-                            var price = tableData[i].price
-                            var key = tableData[i].term + ' - ' + tableData[i].category
-                            var calcRow = findRow(key, json)
-                            tableTabulator.updateData([{id:tableData[i].id,difference:(price - calcRow.avg).toFixed(0), average:(calcRow.avg).toFixed(0), numFound:calcRow.count}]);
-                        }
-                     });
-                })
-                }
-                function findRow(key, json){
-                    for(var i = 0, length1 = json.length; i < length1; i++){
-                        if(json[i].key === key){
-                            return json[i]
-                        }
-                    }
-                }
                 function toggleHistory(elm){
-                    var key = elm.target.getAttribute('data-key')
-                    var id = elm.target.getAttribute('data-id')
                     var row = elm.target.parentNode.parentNode.parentNode
-                    var drawer = row.querySelector('.drawer')
-                    if(!drawer){
-
-                        fetch(base_url + '/history?k='+escape(key)).then(function(res){
-                             res.json().then(function(json) {
-                                drawer  = document.createElement('div')
-                                drawer.classList.add('drawer')
-                                drawer.setAttribute('data-key', key)
-                                drawer.setAttribute('id', 'drawer-' + id)
-                                var colTits = Object.keys(json[0])
-                                var colData = []
-                                for(var i = 0, length1 = colTits.length; i < length1; i++){        
-                                    var visible = colTits[i] === 'id' ? false : colTits[i] === 'term' ? false : colTits[i] === 'category' ? false : true
-                                    var width = ''
-                                    colData.push({ title: colTits[i], field: colTits[i], width:width, visible:visible })
-                                }
-                                row.appendChild(drawer)
-                                var innerTable = new Tabulator('#drawer-' + id, {
-                                    index:'id',
-                                    data:json,
-                                    layout:"fitColumns",
-                                    columns: colData, 
-                                    rowClick:function(e, row){
-                                        var win = window.open(row.getData().url, '_blank')
-                                        win.focus()
-                                    }
-                                })
-                                })
-                             });
+                    var elm = row.querySelector('.drawer')
+                    if(!elm){
+                        elm  = document.createElement('div')
+                        elm.classList.add('drawer')
+                        elm.innerHTML = 'ok'
+                        row.appendChild(elm)
                     }else{
-                        if(drawer.classList.contains('hidden')){
-                            drawer.classList.remove('hidden')
+                        if(elm.classList.contains('hidden')){
+                            elm.classList.remove('hidden')
                         }else{
-                            drawer.classList.add('hidden')
+                            elm.classList.add('hidden')
                         }
                     }
+
                 }
                 var btns = document.querySelectorAll('.toggle-history')
                 var btn = null
@@ -196,18 +92,15 @@ function getStyle() {
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
             <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script><style>
                 body{font-family:Roboto;width:100%;height:100%;font-size:17px;padding:0;margin:0;}
-                .hidden{display:none;}
                 a{color:blue;text-decoration:underline;cursor:pointer;padding:0;}
                 .hidden{ display:none; }
                 #table-tabulator{
                     width:100%;
                 }
                 .drawer{
-                    height:auto;
-                    background:#fff !important;
-                    padding-bottom:90px;
-                    border-top:2px solid black;
-                    border-bottom:2px solid black;
+                    width:100%;
+                    height:300px;
+                    background:#ccc;
                 }
                 .heading{
                     margin:10px;
@@ -216,34 +109,13 @@ function getStyle() {
                     justify-content:space-between;
 
                 }
-                .firebaseui-card-content{
-                    padding:0 !important;
-                }
-                #firebaseui-auth-container{
-                    width:auto;
-                }
-                .firebaseui-idp-list{
-                    margin:0 !important;
-                }
-                select{
-                    height:20px;
-                }
-                .row{
-                    height:84px;
-                    padding:0.5%;
-                    width:99%;
-                    display:flex;
-                    justify-content:space-between;
-                }
-                .avatar{
-                    width:40px;
-                }
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
+/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -260,17 +132,17 @@ function getStyle() {
 .slider:before {
   position: absolute;
   content: "";
-  height: 50%;
+  height: 50px;
   width: 90px;
   left: 0;
   top: 0;
-  background-color: #ccc;
+  background-color: darkgray;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: white;
+  background-color: #888;
 }
 
 input:focus + .slider {
@@ -278,9 +150,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateY(100%);
-  -ms-transform: translateY(100%);
-  transform: translateY(100%);
+  -webkit-transform: translateY(90px);
+  -ms-transform: translateY(90px);
+  transform: translateY(90px);
 }
                 </style>`;
 }
