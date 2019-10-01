@@ -1,4 +1,16 @@
+const data = {}
+const async = require('async')
 const firebase = require('firebase')
+/*
+var admin = require("firebase-admin");
+
+var serviceAccount = require("../to/camera-watcher-7dd72-firebase-adminsdk-ntel7-d4d055f946.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://camera-watcher-7dd72.firebaseio.com"
+});
+*/
 firebase.initializeApp({
     apiKey: "AIzaSyBNfmTvaAb30R0IoeZ0thow7EFTffDJ4Bg",
     authDomain: "camera-watcher-7dd72.firebaseapp.com",
@@ -8,9 +20,8 @@ firebase.initializeApp({
     messagingSenderId: "306334346433",
     appId: "1:306334346433:web:5ee9f8e1f2223df656f840"
 });
-const async = require('async')
-const data = {}
-
+const db = firebase.firestore()
+var timer = Date.now()
 function extract(obj) {
     return {
         category: obj.category,
@@ -18,13 +29,13 @@ function extract(obj) {
         id: obj.id,
         location: obj.location,
         price: obj.price,
+        endDate:obj.endDate,
         term: obj.term,
         title: obj.title,
         type: obj.type,
         url: obj.viewItemURL
     }
 }
-<<<<<<< HEAD
 data.getHistory = function(key, callback){
     var res = []
         db.collection(key).get().then(function(snapshot) {
@@ -36,17 +47,12 @@ data.getHistory = function(key, callback){
         })
 }
 data.save = function(data, callback) {
-=======
-data.save = function(data) {
-    const db = firebase.firestore();
->>>>>>> 51bedeeacefa1400b2493f6a4337a75ee35622b3
     let tmpObj = []
     let count = 0
-    let id = null
+    let key = null
 
     async.mapSeries(data, (row, next) => {
         row = extract(row)
-<<<<<<< HEAD
         key = row.term + ' - ' + row.category.replace('/','-')
         db.collection(key).doc(row.id).get().then(function(r) {
             if (typeof r.data() !== 'object') {
@@ -58,32 +64,19 @@ data.save = function(data) {
                 })
             }else{
             	next()
-=======
-        id = row.term + ' - ' + row.category
-        db.collection(id).doc(row.id).set(row, { merge: true }).then(function(res, msg) {
-            if (tmpObj.indexOf(id) === -1) {
-                tmpObj.push(id)
->>>>>>> 51bedeeacefa1400b2493f6a4337a75ee35622b3
             }
-            next()
         })
+
     }, function(err, results) {
-        var key = null
+	console.log("finished firebase item save", timer-Date.now())
         for (var i = 0, length1 = tmpObj.length; i < length1; i++) {
-            key = tmpObj[i]
-            const cache = checkCache(key)
-            if (!cache) {
-                getAggregatePrice(key, function(val) {
-                    db.collection('aggregates').doc(key).set(val, { merge: true })
-                })
-            }
+            calculateAgg(tmpObj[i], callback)
         }
     });
 
 
 
 }
-<<<<<<< HEAD
 data.getCalculations = function(keys, callback) {
     var results = []
     async.mapSeries(keys, (value, next) => {
@@ -98,14 +91,25 @@ data.getCalculations = function(keys, callback) {
         callback(results)
     });
 }
-=======
->>>>>>> 51bedeeacefa1400b2493f6a4337a75ee35622b3
 
-function getAggregatePrice(key, callback) {
-    console.log(key)
-}
-function checkCache(key){
-	return false
+function calculateAgg(key, callback) {
+    console.log("read: ", key)
+    db.collection(key).get().then(function(snapshot) {
+        var c = 0
+        var total = 0
+        snapshot.forEach(function(doc, index) {
+            total = total + parseInt(doc.data().price)
+            c++
+        });
+        var avg = total / c
+        var payload = { key: key, avg: avg, total: total, count: c }
+        console.log("calc writing: ", key, payload)
+        db.collection('calculations').doc(key).set(payload, { merge: true }).then(function(res) {
+    console.log("finished firebase calc", timer-Date.now())
+            console.log("calc updated")
+            callback(res)
+        })
+    })
 }
 
 
