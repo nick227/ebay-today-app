@@ -12,7 +12,10 @@ var fresh = false
     var n = 0
 var timer = Date.now()
         var key = null
+        var obj = null
+        var id = null
         var keys = []
+        var idList = []
 
 function handleRequest(termsAll, req, response, route) {
     console.log("^^^^^^^^^")
@@ -59,12 +62,12 @@ function requestEbay(termsAll, req, response, route) {
     }, (err, res) => {
         if (err) { console.error(err.message) }
         console.log("ebay done", timer - Date.now())
-        for (var i = 0, length1 = resAll.length; i < length1; i++) {
+        /*for (var i = 0, length1 = resAll.length; i < length1; i++) {
             key = resAll[i].term + ' - ' + resAll[i].category
             if (keys.indexOf(key) === -1) {
                 keys.push(key)
             }
-        }
+        }*/
             let html = wrapHTML(resAll, Object.keys(terms), route)
             console.log("all done!!!", timer - Date.now())
             console.log("-----------")
@@ -86,7 +89,15 @@ function generate(ebay, terms, counter, callback) {
                 if (matches.length) {
                     console.log("match len: ", matches.length)
                     for (var i = 0, length1 = matches.length; i < length1; i++) {
-                        res.push(formatObj(matches[i], value))
+                        obj = formatObj(matches[i], value)
+                        key = value + ' - ' + obj.category.replace('/','-')
+                        id = obj.id
+                        if(idList.indexOf(id) === -1){
+                            idList.push(id)
+                            keys.push(key)
+                            res.push(obj)
+
+                        }
                     }
                     n++
                     combinedRes = combinedRes.concat(res)
