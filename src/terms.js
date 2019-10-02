@@ -24,20 +24,6 @@ let termsGear    = {termsG2};
 
 let termsAu1    = ["rode microphone", 'sennheiser microphone', 'shotgun microphone', 'shure microphone', 'tascam recorder', 'zoom audio recorder'];
 let termsAudio    = {termsAu1};
-/*
-let termsShoe1 = ["addidas", "nike", "onitsuka shoe", "converse shoe", "puma shoe", "vans shoes", "air jordans", "Bacco Bucci", "Designer Mens shoe", "allen edmonds shoe", "bruno magli shoe", "lululemon shoe", "limited shoes"];
-let termsShoes = {termsShoe1};
-
-let termsOther = ["burton snowboard"];
-let termsOthers = {termsOther};
-
-let termsWatch1 = ["timex", "rolex", "movado watch", "seiko watch", "smartwatch", "quartz stainless watch", "fossil watch", "BREITLING watch","armani watch",  "skagen watch", "tag monaco watch", "Panerai Luminor Due", "MONDAINE HELVETICA", "limited luxury watch", "cartier mens watch", "montblanc watch", "Vacheron Constantin", "mens diamond watch", "tag heuer watch"];
-termsWatches = {termsWatch1};
-
-let termsBook = ["graphic novel book", "signed copy book", "first print book", "collectors edition book", "vintage book"];
-let termsBooks = {termsBook};f
-*/
-
 
 let vidCards = ["AMD Ryzen", "intel core i9", "EVGA GeForce RTX 2080", "AMD Radeon Pro", "video card gpu 16gb", "Intel Xeon processor cpu", "AMD Epyc processor cpu"];
 let termsvidCards = {vidCards};
