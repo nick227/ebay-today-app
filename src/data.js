@@ -1,25 +1,8 @@
 const data = {}
 const async = require('async')
 const firebase = require('firebase')
-/*
-var admin = require("firebase-admin");
-
-var serviceAccount = require("../to/camera-watcher-7dd72-firebase-adminsdk-ntel7-d4d055f946.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://camera-watcher-7dd72.firebaseio.com"
-});
-*/
-firebase.initializeApp({
-    apiKey: "AIzaSyBNfmTvaAb30R0IoeZ0thow7EFTffDJ4Bg",
-    authDomain: "camera-watcher-7dd72.firebaseapp.com",
-    databaseURL: "https://camera-watcher-7dd72.firebaseio.com",
-    projectId: "camera-watcher-7dd72",
-    storageBucket: "camera-watcher-7dd72.appspot.com",
-    messagingSenderId: "306334346433",
-    appId: "1:306334346433:web:5ee9f8e1f2223df656f840"
-});
+const FIREBASE_KEY = require('../private').firebase
+firebase.initializeApp(FIREBASE_KEY);
 const db = firebase.firestore()
 var timer = Date.now()
 function extract(obj) {
