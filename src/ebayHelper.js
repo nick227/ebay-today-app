@@ -14,7 +14,7 @@ var queryTimer = 1000
 function ebayHelper(termsAll, req, callback) {
     var endDate = typeof req.t === 'string' ? calcEndDate(req.t) + '.768Z' : calcEndDate('day') + '.768Z'
     var filters = [{ MaxPrice: typeof req.p === 'string' ? req.p : 500000 }, { MinPrice: 25 }, { EndTimeTo: endDate },{ ListingType: 'Auction' }]
-    var sortOrder = typeof req.f === 'string' ? req.f : 'PricePlusShippingLowest'
+    var sortOrder = typeof req.f === 'string' ? req.f : 'BestMatch'
     var limit = typeof req.z === 'string' ? req.z : 50
     var ebayObj = new Ebay({
         clientID: EBAY_KEY,

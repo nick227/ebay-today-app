@@ -1,9 +1,9 @@
 let termsMini = ["pipe"];
 
-let termsCameras = ['panasonic lumix gh4', 'panasonic lumix gh5', 'canon xc10', 'canon c100 camera', 'canon c200 camera', 'canon c300 camera', 'canon c500 camera', 'canon mark IV', 'canon 80D', 'canon M50', 'canon eos-1d x mark', 'sony fs5 camera', 'sony fs7 camera', 'black magic cinema camera', 'black magic ursa mini camera', 'red dragon camera', 'red camera digital cinema', 'Fujifilm X-T20', 'Fujifilm X-T3'];
+let termsCameras = ['panasonic lumix gh4', 'panasonic lumix gh5', 'canon xc10', 'canon c100 camera', 'canon c200 camera', 'canon c300 camera', 'canon c500 camera', 'canon mark IV', 'canon 80D', 'canon M50', 'canon eos-1d x mark', 'sony fs5 camera', 'sony fs7 camera', 'black magic cinema camera', 'black magic ursa mini camera', 'Arri Alexa', 'red camera digital cinema', 'Fujifilm X-T20', 'Fujifilm X-T3'];
 
 
-let termsLenses = ["ef mount lens", "Parfocal Lens", "Cine lens", 'micro four thirds lens', 'SLR Magic lens', 'cinema prime lens'];
+let termsLenses = ["ef mount lens", "Parfocal Lens", "Cine lens", 'micro four thirds lens', 'SLR Magic lens', 'cinema lens', 'anamorphic camera lens', ];
 
 
 let termsLights = ["godox video light", 'video studio lighting', 'LED Video Light', 'fresnel light', 'Aputure video light', 'kino flo light', 'continuous output video light'];
