@@ -8,7 +8,8 @@ const db = firebase.firestore()
 var timer = Date.now()
 const moment = require('moment')
 
-function formatObj(obj) {
+function maskWriteObj(obj) {
+    console.log("write:", obj.title)
     return {
         category: obj.category,
         condition: obj.condition,
@@ -24,7 +25,7 @@ function formatObj(obj) {
         url: obj.viewItemURL
     }
 }
-function maskObj(obj, key) {
+function maskReadObj(obj, key) {
     return {
         image: obj.galleryURL,
         title: obj.title,
@@ -105,7 +106,7 @@ data.get = function(key, callback) {
                     res[i].diff = Math.round(res[i].price - avg)
                     res[i].found = c
                     res[i].avg = avg
-                    res[i] = maskObj(res[i], key)
+                    res[i] = maskReadObj(res[i], key)
                 }
 
             }
@@ -119,7 +120,7 @@ data.save = function(data, callback) {
     let count = 0
     let key = null
     async.mapSeries(data, (row, next) => {
-        row = formatObj(row)
+        row = maskWriteObj(row)
         key = row.term
         db.collection(key).doc(row.id).set(row, { merge: true }).then(function(res, msg) {
             if (tmpObj.indexOf(key) === -1) {

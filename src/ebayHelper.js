@@ -13,7 +13,7 @@ var queryTimer = 1000
 
 function ebayHelper(termsAll, req, callback) {
     var endDate = typeof req.t === 'string' ? calcEndDate(req.t) + '.768Z' : calcEndDate('day') + '.768Z'
-    var filters = [{ MaxPrice: typeof req.p === 'string' ? req.p : 500000 }, { MinPrice: 25 }, { EndTimeTo: endDate }, { ListingType: 'Auction' }]
+    var filters = [{ MaxPrice: typeof req.p === 'string' ? req.p : 500000 }, { MinPrice: 25 }, { EndTimeTo: endDate },{ ListingType: 'Auction' }]
     var sortOrder = typeof req.f === 'string' ? req.f : 'PricePlusShippingLowest'
     var limit = typeof req.z === 'string' ? req.z : 50
     var ebayObj = new Ebay({
@@ -45,7 +45,7 @@ function _query(ebay, terms, callback) {
                 let res = []
                 if (matches.length) {
                     for (var i = 0, length1 = matches.length; i < length1; i++) {
-                        obj = formatObj(matches[i], value)
+                        obj = formatEbayResults(matches[i], value)
                         key = value
                         id = obj.id
                         if (idList.indexOf(id) === -1) {
@@ -77,7 +77,7 @@ function convertEbayTime(str) {
 }
 
 
-function formatObj(item, term) {
+function formatEbayResults(item, term) {
     var res = {}
     var { days, hours, minutes, seconds } = convertEbayTime(item.sellingStatus[0].timeLeft.toString())
     res['id'] = item.itemId[0]

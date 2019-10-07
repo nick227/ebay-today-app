@@ -8,7 +8,7 @@ function wrapHTML(data, route) {
     html += '</head>'
     html += '<body>'
     var searchTerms = typeof termsAll[route] === 'object' ? termsAll[route].join(", ") : ''
-    html += '<div class="row" style="padding:1%;width:98%;"><div><b>No affiliation with ebay: ' + data.length + ' results</b></div>';
+    html += '<div class="row" style="padding:1%;width:98%;"><div><b>No affiliation with ebay: ' + data.length + ' results</b><p>Auctions ending in next 24-hours</p></div>';
     html += '<select style="width:300px;" id="cat-menu"><option value=""></option>';
     var className = '';
     for (var i = 0; i < terms.length; i++) {
@@ -16,7 +16,7 @@ function wrapHTML(data, route) {
     }
     html += '</select>'
     html += '</div>'
-    html += '<div style="background:lightgrey; padding:1%;width:98%;"><b>searched:</b> ' + searchTerms + '</div>'
+    html += '<div style="background:lightgrey; padding:1%;width:98%;"><b>terms:</b> ' + searchTerms + '</div>'
     html += '<div id="table-tabulator"></div>'
     html += getJavascript(data);
     html += '</body>'
@@ -42,70 +42,8 @@ function getJavascript(data) {
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
         <link href="https://unpkg.com/tabulator-tables@4.4.1/dist/css/tabulator.min.css" rel="stylesheet">
         <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.4.1/dist/js/tabulator.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
         <script>
             (function(){
-                /*<div id="firebaseui-auth-container"></div>
-                var base_url = window.location.origin;
-                var pathArray = window.location.pathname.split( '/' );
-                var firebaseConfig = {
-                    apiKey: 'AIzaSyBNfmTvaAb30R0IoeZ0thow7EFTffDJ4Bg',
-                    databaseURL: 'https://camera-watcher-7dd72.firebaseio.com',
-                    authDomain: 'camera-watcher-7dd72.firebaseapp.com'
-                }
-
-                var uiConfig = {
-                    signInSuccessUrl: window.location.href,
-                    signInOptions: [
-                        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-                    ]
-                }
-                var app = firebase.initializeApp(firebaseConfig)
-                var auth = app.auth()
-                var ui = new firebaseui.auth.AuthUI(auth)
-                ui.start('#firebaseui-auth-container', uiConfig)
-
-             firebase.auth().onAuthStateChanged(function(user) {
-                  if (user && user.uid != null) {  
-                    var accessToken = null;
-
-                    firebase.auth().currentUser
-                        .getIdToken()
-                        .then(function (token) {});
-
-
-                    var img = document.createElement('img')
-                    img.classList.add('avatar')
-                    var a = document.createElement('a')
-                    a.textContent = 'Sign Out'
-                    a.onclick = function(){
-                            firebase.auth().signOut().then(function(){
-                            document.querySelector('#firebaseui-auth-container').querySelector('.firebaseui-container').classList.remove('hidden')
-                            var avatar = document.querySelector('#firebaseui-auth-container').querySelector('.avatar-container')
-                            avatar.parentNode.removeChild(avatar)
-
-                        })
-                    }
-                    var div = document.createElement('div')
-                    div.classList.add('avatar-container')
-                    var txt = document.createElement('div')
-                    img.setAttribute('src', user.photoURL)
-                    txt.textContent = user.displayName
-                    div.appendChild(img)
-                    div.appendChild(txt)
-                    div.appendChild(a)
-                    document.querySelector('#firebaseui-auth-container').querySelector('.firebaseui-container').classList.add('hidden')
-                    document.querySelector('#firebaseui-auth-container').appendChild(div)
-              }else{
-                if(pathArray[1].length){
-                    window.location.href=base_url
-                }
-
-              }
-             });
-             */
              if(` + data.length + `){
                 var tableTabulator = new Tabulator("#table-tabulator", {
                     index:"id",
@@ -228,7 +166,21 @@ function getStyle() {
   width: 0;
   height: 0;
 }
+#table-tabulator{
+    display:flex;
+    flex-direction:column;
 
+}
+.tabulator-header{
+
+  position: -webkit-sticky;
+  position: sticky !important;
+  top: 0;
+
+}
+.tabulator-tableHolder{
+    width:100%;
+}
 .slider {
   position: absolute;
   cursor: pointer;
