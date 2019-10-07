@@ -1,16 +1,15 @@
-function wrapHTML(data, terms, route) {
+function wrapHTML(data, termsAll, route) {
+    var terms = Object.keys(termsAll)
     var html = '<!doctype html>';
     html += '<html lang="eng"><head><meta charset="utf-8"><title>' + route + '</title><meta name="viewport" content="width=device-width,initial-scale=1.0">';
     html += getStyle();
     html += '</head>'
     html += '<body>'
-    html += '<div class="row"><b>No affiliation with ebay: ' + data.length + '</b>';
-    html += '<div style=""><a href="?t=day">one day</a> / <a href="?t=hour">next hour</a> / <a href="?t=minute">sixty seconds</a> / <a href="?t=three">three days</a> / <a href="?t=all">all times</a></div>';
-    html += '<div><a href="?z=50">50</a> /  <a href="?z=100">100</a> /  <a href="?z=999">999</a> / <a href="?z=5">5</a></div>';
+    html += '<div class="row"><div><div><b>No affiliation with ebay: ' + data.length + '</b></div><div style="max-width:480px;background:lightgrey">searched: '+ termsAll[route].join(", ") +'</div></div>';
+    html += '<div></div>'
 
 
-
-    html += '<select id="cat-menu"><option value=""></option>';
+    html += '<select style="width:300px;" id="cat-menu"><option value=""></option>';
     var className = '';
     for (var i = 0; i < terms.length; i++) {
         html += '<option class="sort" data-sort="" value="' + terms[i] + '">' + terms[i] + '</option>';

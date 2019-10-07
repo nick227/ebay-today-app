@@ -9,13 +9,13 @@ var obj = null
 var id = null
 var idList = []
 var resAll = []
-
+var queryTimer = 1000
 
 function ebayHelper(termsAll, req, route, callback) {
     var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t) + '.768Z' : calcEndDate('day') + '.768Z'
     var filters = [{ MaxPrice: typeof req.query.p === 'string' ? req.query.p : 500000 }, { MinPrice: 25 }, { EndTimeTo: endDate }, { ListingType: 'Auction' }]
     var sortOrder = typeof req.query.f === 'string' ? req.query.f : 'PricePlusShippingLowest'
-    var limit = typeof req.query.z === 'string' ? req.query.z : 2
+    var limit = typeof req.query.z === 'string' ? req.query.z : 50
     var ebayObj = new Ebay({
         clientID: EBAY_KEY,
         limit: limit,
@@ -28,10 +28,6 @@ function ebayHelper(termsAll, req, route, callback) {
             next()
         })
     }, (err, res) => {
-        if (err) {
-            console.error(err.message)
-        }
-        console.log("ebay done", timer - Date.now())
         callback(resAll)
     })
 
@@ -40,7 +36,8 @@ function ebayHelper(termsAll, req, route, callback) {
 function _query(ebay, terms, callback) {
     var combinedRes = []
     async.mapSeries(terms, (value, next) => {
-        console.log("search: ", value)
+        console.log("start:", value)
+        setTimeout(function(){
         ebay.findItemsByKeywords(value).then((data) => {
             let res = {}
             if (data[0].ack[0] === 'Success' && data[0].searchResult[0].item) {
@@ -61,8 +58,11 @@ function _query(ebay, terms, callback) {
             }
             next()
         }, (error) => {
+            console.log("callback")
             callback(error)
         })
+
+        }, queryTimer)
     }, err => {
         callback(combinedRes)
     })

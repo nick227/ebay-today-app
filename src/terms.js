@@ -1,6 +1,6 @@
 let termsMini = ["pipe"];
 
-let termsCameras = ['panasonic lumix gh4 body', 'panasonic lumix gh5 body', 'canon xc10 body', 'canon c100 camera body', 'canon c200 camera body', 'canon c300 camera body', 'canon mark IV body', 'canon 80D body', 'canon M50 body', 'canon eos-1d x mark body', 'sony fs5 camera', 'sony fs7 camera', 'black magic cinema camera', 'black magic ursa mini camera', 'red dragon camera body', 'red camera digital cinema', 'Fujifilm X-T20 body', 'Fujifilm X-T3 body'];
+let termsCameras = ['panasonic lumix gh4 body', 'panasonic lumix gh5 body', 'canon xc10 body', 'canon c100 camera', 'canon c200 camera', 'canon c300 camera', 'canon c500 camera', 'canon mark IV body', 'canon 80D body', 'canon M50 body', 'canon eos-1d x mark body', 'sony fs5 camera', 'sony fs7 camera', 'black magic cinema camera', 'black magic ursa mini camera', 'red dragon camera body', 'red camera digital cinema', 'Fujifilm X-T20 body', 'Fujifilm X-T3 body'];
 
 
 let termsLenses = ["ef mount lens", "Parfocal Lens", "Cine lens", 'micro four thirds lens', 'SLR Magic lens', 'cinema prime lens'];

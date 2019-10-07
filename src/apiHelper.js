@@ -13,7 +13,7 @@ function handleRequest(termsAll, req, response, route) {
 
     } else {
         dataObj.get(route, function(res) {
-            response.send(wrapHTML(res, Object.keys(termsAll), route))
+            response.send(wrapHTML(res, termsAll, route))
         })
     }
 }
