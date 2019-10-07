@@ -26,14 +26,18 @@ function wrapHTML(data, terms, route) {
 
 function getJavascript(data) {
     var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
-    var keys = data[0] ? Object.keys(data[0]) : []
     var colData = []
-    for (var i = 0, length1 = keys.length; i < length1; i++) {
-        var width = keys[i] === 'title' ? 580 : keys[i] === 'galleryURL' ? 140 : keys[i] === 'term' ? 140 : keys[i] === 'history' ? 90 : ''
-        var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : keys[i] === 'endDate' ? false : true
-        var formatter = keys[i] === 'galleryURL' ? 'image' : 'html'
-        var headerFilter = keys[i] === 'galleryURL' ? false : keys[i] === 'endTime' ? false : keys[i] === 'links' ? false : keys[i] === 'history' ? false : true
-        colData.push({ title: keys[i], field: keys[i], width: width, visible: visible, formatter: formatter, headerFilter: headerFilter })
+    console.log("ok", data.length)
+    if (data.length) {
+        var keys = data[0] ? Object.keys(data[0]) : []
+        for (var i = 0, length1 = keys.length; i < length1; i++) {
+            var width = keys[i] === 'title' ? 580 : keys[i] === 'image' ? 140 : keys[i] === 'term' ? 140 : keys[i] === 'history' ? 90 : ''
+            var visible = keys[i] === 'id' ? false : keys[i] === 'viewItemURL' ? false : keys[i] === 'type' ? false : keys[i] === 'epoch' ? false : true
+            var formatter = keys[i] === 'image' ? 'image' : keys[i] === 'url' ? 'link' : 'html'
+            var headerFilter = keys[i] === 'image' ? false : keys[i] === 'endTime' ? false : keys[i] === 'links' ? false : keys[i] === 'history' ? false : true
+            colData.push({ title: keys[i], field: keys[i], width: width, visible: visible, formatter: formatter, headerFilter: headerFilter })
+        }
+
     }
     return `<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
@@ -101,34 +105,15 @@ function getJavascript(data) {
 
               }
              });
+             if(` + data.length + `){
                 var tableTabulator = new Tabulator("#table-tabulator", {
                     index:"id",
                     data: ` + JSON.stringify(data) + `,
                     layout: "fitColumns",
                     columns: ` + JSON.stringify(colData) + `
                 });
-                setTimeout(function(){loadCalcs(tableTabulator)}, 3333)
-                function loadCalcs(tableTabulator){
 
-                fetch(base_url + '/calculations').then(function(res){
-                     res.json().then(function(json) {
-                        var tableData = tableTabulator.getData();
-                        for(var i = 0, length1 = tableData.length; i < length1; i++){
-                            var price = tableData[i].price
-                            var key = tableData[i].term + ' - ' + tableData[i].category
-                            var calcRow = findRow(key, json)
-                            tableTabulator.updateData([{id:tableData[i].id,difference:(price - calcRow.avg).toFixed(0), average:(calcRow.avg).toFixed(0), numFound:calcRow.count}]);
-                        }
-                     });
-                })
-                }
-                function findRow(key, json){
-                    for(var i = 0, length1 = json.length; i < length1; i++){
-                        if(json[i].key === key){
-                            return json[i]
-                        }
-                    }
-                }
+             }
                 function toggleHistory(elm){
                     var key = elm.target.getAttribute('data-key')
                     var id = elm.target.getAttribute('data-id')
