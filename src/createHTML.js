@@ -1,25 +1,26 @@
-function wrapHTML(data, termsAll, route) {
+const termsAll = require('./terms');
+
+function wrapHTML(data, route) {
     var terms = Object.keys(termsAll)
     var html = '<!doctype html>';
     html += '<html lang="eng"><head><meta charset="utf-8"><title>' + route + '</title><meta name="viewport" content="width=device-width,initial-scale=1.0">';
     html += getStyle();
     html += '</head>'
     html += '<body>'
-    html += '<div class="row"><div><div><b>No affiliation with ebay: ' + data.length + '</b></div><div style="max-width:480px;background:lightgrey">searched: '+ termsAll[route].join(", ") +'</div></div>';
-    html += '<div></div>'
-
-
+    var searchTerms = typeof termsAll[route] === 'object' ? termsAll[route].join(", ") : ''
+    html += '<div class="row" style="padding:1%;width:98%;"><div><b>No affiliation with ebay: ' + data.length + ' results</b></div>';
     html += '<select style="width:300px;" id="cat-menu"><option value=""></option>';
     var className = '';
     for (var i = 0; i < terms.length; i++) {
         html += '<option class="sort" data-sort="" value="' + terms[i] + '">' + terms[i] + '</option>';
     }
-    html += '</select><div id="firebaseui-auth-container"></div>';
-    html += '</div>';
-    html += '<div id="table-tabulator"></div>';
+    html += '</select>'
+    html += '</div>'
+    html += '<div style="background:lightgrey; padding:1%;width:98%;"><b>searched:</b> ' + searchTerms + '</div>'
+    html += '<div id="table-tabulator"></div>'
     html += getJavascript(data);
-    html += '</body>';
-    html += '</html>';
+    html += '</body>'
+    html += '</html>'
     return html;
 }
 
@@ -46,6 +47,7 @@ function getJavascript(data) {
         <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
         <script>
             (function(){
+                /*<div id="firebaseui-auth-container"></div>
                 var base_url = window.location.origin;
                 var pathArray = window.location.pathname.split( '/' );
                 var firebaseConfig = {
@@ -103,6 +105,7 @@ function getJavascript(data) {
 
               }
              });
+             */
              if(` + data.length + `){
                 var tableTabulator = new Tabulator("#table-tabulator", {
                     index:"id",
@@ -212,7 +215,6 @@ function getStyle() {
                     height:20px;
                 }
                 .row{
-                    height:84px;
                     padding:0.5%;
                     width:99%;
                     display:flex;

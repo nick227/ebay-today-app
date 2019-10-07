@@ -2,9 +2,9 @@ const dataObj = require('./data')
 var { wrapHTML } = require('./createHTML.js')
 
 
-function handleRequest(termsAll, req, response, route) {
+function handleRequest(req, response, route) {
         dataObj.get(route, function(res) {
-            response.send(wrapHTML(res, termsAll, route))
+            response.send(wrapHTML(res, route))
         })
 }
 module.exports = handleRequest
