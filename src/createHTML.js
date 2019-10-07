@@ -26,7 +26,6 @@ function wrapHTML(data, termsAll, route) {
 function getJavascript(data) {
     var colors = ['#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11', '#ffff5a', '#90caf9', '#bef67a', '#ce93d8', '#adcf11'];
     var colData = []
-    console.log("ok", data.length)
     if (data.length) {
         var keys = data[0] ? Object.keys(data[0]) : []
         for (var i = 0, length1 = keys.length; i < length1; i++) {

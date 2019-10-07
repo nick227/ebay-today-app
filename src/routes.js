@@ -21,7 +21,7 @@ function init(app) {
 
 function addRoute(route, app) {
     app.get('/' + route, function(req, response) {
-        handleRequest(termsAll, req, response, route);
+        handleRequest(req, response, route);
     });
 }
 

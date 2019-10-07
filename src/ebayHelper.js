@@ -11,11 +11,11 @@ var idList = []
 var resAll = []
 var queryTimer = 1000
 
-function ebayHelper(termsAll, req, route, callback) {
-    var endDate = typeof req.query.t === 'string' ? calcEndDate(req.query.t) + '.768Z' : calcEndDate('day') + '.768Z'
-    var filters = [{ MaxPrice: typeof req.query.p === 'string' ? req.query.p : 500000 }, { MinPrice: 25 }, { EndTimeTo: endDate }, { ListingType: 'Auction' }]
-    var sortOrder = typeof req.query.f === 'string' ? req.query.f : 'PricePlusShippingLowest'
-    var limit = typeof req.query.z === 'string' ? req.query.z : 50
+function ebayHelper(termsAll, req, callback) {
+    var endDate = typeof req.t === 'string' ? calcEndDate(req.t) + '.768Z' : calcEndDate('day') + '.768Z'
+    var filters = [{ MaxPrice: typeof req.p === 'string' ? req.p : 500000 }, { MinPrice: 25 }, { EndTimeTo: endDate }, { ListingType: 'Auction' }]
+    var sortOrder = typeof req.f === 'string' ? req.f : 'PricePlusShippingLowest'
+    var limit = typeof req.z === 'string' ? req.z : 50
     var ebayObj = new Ebay({
         clientID: EBAY_KEY,
         limit: limit,
@@ -36,7 +36,7 @@ function ebayHelper(termsAll, req, route, callback) {
 function _query(ebay, terms, callback) {
     var combinedRes = []
     async.mapSeries(terms, (value, next) => {
-        console.log("start:", value)
+        console.log("go:", value)
         setTimeout(function(){
         ebay.findItemsByKeywords(value).then((data) => {
             let res = {}
