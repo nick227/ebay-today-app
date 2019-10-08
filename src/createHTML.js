@@ -8,7 +8,7 @@ function wrapHTML(data, route) {
     html += '</head>'
     html += '<body>'
     var searchTerms = typeof termsAll[route] === 'object' ? termsAll[route].join(", ") : ''
-    html += '<div class="row" style="padding:1%;width:98%;"><div><b>No affiliation with ebay: ' + data.length + ' results</b><p>Auctions ending in next 24-hours</p></div>';
+    html += '<div class="row" style="padding:1%;width:98%;"><div><b>No affiliation with ebay: ' + data.length + ' results</b><p>Auctions that end in 24-hours</p></div>';
     html += '<select style="width:300px;" id="cat-menu"><option value=""></option>';
     var className = '';
     for (var i = 0; i < terms.length; i++) {
@@ -54,45 +54,28 @@ function getJavascript(data) {
 
              }
                 function toggleHistory(elm){
-                    var key = elm.target.getAttribute('data-key')
-                    var id = elm.target.getAttribute('data-id')
-                    var row = elm.target.parentNode.parentNode.parentNode
-                    var drawer = row.querySelector('.drawer')
-                    if(!drawer){
 
-                        fetch(base_url + '/history?k='+escape(key)).then(function(res){
+                    var key = elm.target.getAttribute('data-key')
+                        fetch( window.location.origin + '/history?k='+escape(key)).then(function(res){
                              res.json().then(function(json) {
-                                drawer  = document.createElement('div')
-                                drawer.classList.add('drawer')
-                                drawer.setAttribute('data-key', key)
-                                drawer.setAttribute('id', 'drawer-' + id)
-                                var colTits = Object.keys(json[0])
-                                var colData = []
-                                for(var i = 0, length1 = colTits.length; i < length1; i++){        
-                                    var visible = colTits[i] === 'id' ? false : colTits[i] === 'term' ? false : colTits[i] === 'category' ? false : true
-                                    var width = ''
-                                    colData.push({ title: colTits[i], field: colTits[i], width:width, visible:visible })
+                                var newTable = '<div style="">'
+                                var c = 0
+                                for(var i = 0, length1 = json.length; i < length1; i++){        
+                                    var bg = c % 2 === 0 ? 'background:lightgray;' : ''
+                                    newTable += '<div style="clear:both; '+bg+' margin-bottom:2px; padding:2px;height:140px;">'
+                                        for(var p in json[i]){
+                                            var f = p === 'image' ? 'float:left;' : ''
+                                            newTable += '<div style="'+f+' margin:0 2px;">'+json[i][p]+'</div>'
+                                        }
+                                    c++
+                                    newTable += '</div>'
                                 }
-                                row.appendChild(drawer)
-                                var innerTable = new Tabulator('#drawer-' + id, {
-                                    index:'id',
-                                    data:json,
-                                    layout:"fitColumns",
-                                    columns: colData, 
-                                    rowClick:function(e, row){
-                                        var win = window.open(row.getData().url, '_blank')
-                                        win.focus()
-                                    }
-                                })
-                                })
-                             });
-                    }else{
-                        if(drawer.classList.contains('hidden')){
-                            drawer.classList.remove('hidden')
-                        }else{
-                            drawer.classList.add('hidden')
-                        }
-                    }
+                                newTable += '</div>'
+                                var newWindow = window.open("", null, "height="+window.innerHeight+",width="+window.innerWidth/2+",status=yes,toolbar=no,menubar=no,location=no")
+                                newWindow.document.write(newTable)
+                            })
+                        })
+
                 }
                 var btns = document.querySelectorAll('.toggle-history')
                 var btn = null

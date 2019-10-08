@@ -25,7 +25,21 @@ function maskWriteObj(obj) {
         url: obj.viewItemURL
     }
 }
-function maskReadObj(obj, key) {
+
+function maskReadObj(obj, key, history) {
+    if (history) {
+        return {
+            image: '<img style="float:left; padding:3px; height:140px;width:125px;" src="'+obj.galleryURL+'" />',
+            title: obj.title,
+            condition: obj.condition,
+            price: obj.price,
+            endDate: moment(obj.endDate).format('MM/D/YYYY h:mm A'),
+            location: obj.location,
+        term: key,
+            links: '<a href="' + obj.url + '" target="_blank">ebay</a>'
+
+        }
+    }
     return {
         image: obj.galleryURL,
         title: obj.title,
@@ -36,30 +50,30 @@ function maskReadObj(obj, key) {
         found: obj.found,
         term: key,
         category: obj.category,
-        price: obj.price,
         ending: formatEndDate(obj.endDate),
         type: obj.type,
         id: obj.id,
         location: obj.location,
-        links: '<a href="' + obj.url + '" target="_blank">ebay</a><BR><a href="https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=' + encodeURI(obj.title) + '" target="_blank">amazon</a><BR><a href="https://www.google.com/search?q=' + encodeURI(obj.title) + '" target="_blank">google</a>'
+        links: '<a href="' + obj.url + '" target="_blank">ebay</a><BR><a href="https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=' + encodeURI(obj.title) + '" target="_blank">amazon</a><BR><a href="https://www.google.com/search?q=' + encodeURI(obj.title) + '" target="_blank">google</a><BR><a data-key="' + key + '" class="link toggle-history">history</a>'
     }
 }
-function formatEndDate(date){
-    var seconds = moment(date).unix()
-    var d = Math.abs(seconds - moment().unix());                        
-var r = {};                                                               
-var s = {             
-    day: 86400,   
-    hour: 3600,
-    minute: 60,
-    second: 1
-};
 
-Object.keys(s).forEach(function(key){
-    r[key] = Math.floor(d / s[key]);
-    d -= r[key] * s[key];
-});
-return r['hour'] + ' hours ' + r['minute'] + ' minutes ' + r['second'] + ' seconds'
+function formatEndDate(date) {
+    var seconds = moment(date).unix()
+    var d = Math.abs(seconds - moment().unix());
+    var r = {};
+    var s = {
+        day: 86400,
+        hour: 3600,
+        minute: 60,
+        second: 1
+    };
+
+    Object.keys(s).forEach(function(key) {
+        r[key] = Math.floor(d / s[key]);
+        d -= r[key] * s[key];
+    });
+    return r['hour'] + ' hours ' + r['minute'] + ' minutes ' + r['second'] + ' seconds'
 }
 
 function calculateAgg(key, callback) {
@@ -74,7 +88,11 @@ function calculateAgg(key, callback) {
         callback({ key: key, avg: avg, total: total, count: c })
     })
 }
-
+data.getHistory = function(key, callback) {
+    _query(key, function(data) {
+        callback(data)
+    }, true)
+}
 data.get = function(key, callback) {
     var res = []
     async.mapSeries(termsAll[key], (key, next) => {
@@ -86,34 +104,34 @@ data.get = function(key, callback) {
     }, function(err, r) {
         callback(res)
     });
+}
 
-    function _query(key, callback) {
-        db.collection(key).get().then(function(snapshot) {
-            var res = []
-            var total = 0
-            var c = 0
-            snapshot.forEach(function(doc, index) {
-                if (doc.data().epoch > Math.round(Date.now() / 1000)) {
-                    res.push(doc.data())
-                }
-                total = total + parseInt(doc.data().price)
-                c++
-
-            })
-            if (c && res.length) {
-                var avg = Math.round(total / c)
-                for (var i = res.length - 1; i >= 0; i--) {
-                    res[i].diff = Math.round(res[i].price - avg)
-                    res[i].found = c
-                    res[i].avg = avg
-                    res[i] = maskReadObj(res[i], key)
-                }
-
+function _query(key, callback, history) {
+    db.collection(key).get().then(function(snapshot) {
+        var res = []
+        var total = 0
+        var c = 0
+        snapshot.forEach(function(doc, index) {
+            if (doc.data().epoch > Math.round(Date.now() / 1000)) {
+                res.push(doc.data())
             }
-            callback(res)
-        })
+            total = total + parseInt(doc.data().price)
+            c++
 
-    }
+        })
+        if (c && res.length) {
+            var avg = Math.round(total / c)
+            for (var i = res.length - 1; i >= 0; i--) {
+                res[i].diff = Math.round(res[i].price - avg)
+                res[i].found = c
+                res[i].avg = avg
+                res[i] = maskReadObj(res[i], key, history)
+            }
+
+        }
+        callback(res)
+    })
+
 }
 data.save = function(data, callback) {
     let tmpObj = []
